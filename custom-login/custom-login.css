@@ -1,0 +1,78 @@
+/***********************************
+*
+* CUSTOM LOGIN SCREEN
+* db2010
+*
+***********************************/
+html {
+	background: #181818;
+	height: 100%;
+}
+	body {
+		background: url("background.jpg") top no-repeat !important; 
+		height: 100%; 
+		padding: 0px;
+	}
+		#login { /* The container element */
+			margin: 0 auto; 
+			padding: 220px 0 0 291px; 
+			width: 330px;
+		}
+		h1 {
+			display: none;
+		}
+		form {
+			-moz-box-shadow: none; 
+			-webkit-box-shadow: none; 
+			box-shadow: none; 
+			padding: 0; 
+			border: 0; 
+			background: transparent;
+		}
+		label {
+			color: #969696; 
+			font-style: italic; 
+			font-size: 14px;
+		}
+		form .forgetmenot label {
+			font-size: 12px; 
+			font-style: normal;
+		}
+		#user_pass, 
+		#user_login, 
+		#user_email {
+			-moz-border-radius: 5px; 
+			-webkit-border-radius: 5px; 
+			border-radius: 5px;
+			background: #fff;
+		}
+		#wp-submit {
+			border: none; 
+			-moz-border-radius: 5px; 
+			-webkit-border-radius: 5px; 
+			border-radius: 5px; 
+			background: #383838; 
+			font-size: 16px; 
+			font-weight: normal; 
+			padding: 5px 20px;
+		}
+		#nav {
+			clear: both; 
+			padding: 20px 0; 
+			text-shadow: none;
+		}
+
+	#backtoblog {
+		height: 45px !important;
+		background: none !important;
+		border-width: 0 !important;
+	}
+	#backtoblog a {
+		line-height: 45px; 
+		top: 0; 
+		color: #49719E !important;
+		padding: 0 !important;
+	}
+		#backtoblog a:hover {
+			color: #8db5e3 !important;
+		}
