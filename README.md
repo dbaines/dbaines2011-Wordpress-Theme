@@ -14,12 +14,26 @@ This is the theme currently in use at dBaines.com
 * Portfolio page takes the latest thumbnail from each area (website, artwork, motion) and creates a button from that image
 * Modified EasySlider script to include keyboard navigation and support for multiple easysliders on a single page
 * Heavy uses of HTML5 and CSS3
+* Custom homepage theme
+* Randomised 404 page
+* Very basic mobile-device media query
+* Custom login page
+
+## Recommended Wordpress Plugins:
+
+* Additional Image Sizes - Provides image sizes for homepage slider, website slider, gallery thumbnail, as well as the default post sizes.
+* Advanced Excerpt - HTMLified Excerpts for searches and tutorial posts
+* Custom Field Template - Very handy template to set up custom fields for different custom post types. 
+* Post Types Order - Quickly and easily re-arrange your custom post types - in my case portfolio entries.
+* WP Page Navi - The best page navigation replacement plugin. 
+* WP Audioscrobbler - Classic last.fm integration
 
 ## Credits
 
 ### Base:
 
 * HTML5 Boilerplate
+* TwentyTen Wordpress Theme (3.1)
 
 ### Icons:
 
