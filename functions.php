@@ -38,6 +38,29 @@
  * @since Twenty Ten 1.0
  */
 
+
+
+/***********************************
+*
+* EXTERNAL FUNCTIONS
+* db2011
+* 
+* These functions can be found in /functions/
+*
+***********************************/
+// Custom Post Types
+include('functions/functions.post-types.php');
+
+// Custom Wordpress Options Page
+include('functions/functions.options.php');
+
+// Shortcodes
+include('functions/functions.shortcodes.php');
+
+// Comments Template
+include('functions/functions.comments.php');
+
+
 /***********************************
 *
 * VARIOUS FIXES
@@ -46,6 +69,11 @@
 ***********************************/
 // Removes <p> tags around the category descriptions
 remove_filter('term_description','wpautop');
+
+// Remove automatic links to feeds
+// http://www.456bereastreet.com/archive/201103/controlling_and_customising_rss_feeds_in_wordpress/
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
 
 /***********************************
 *
@@ -58,385 +86,6 @@ echo '<link rel="stylesheet" type="text/css" href="' . get_bloginfo('template_di
 }
 add_action('login_head', 'custom_login');
 
-
-/***********************************
-*
-* CUSTOM POST TYPES
-* db2011
-*
-***********************************/
-register_post_type('artwork', array(	'label' => 'Artwork','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => '', 'with_front' => false),'query_var' => true,'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes',),'taxonomies' => array('post_tag',),'labels' => array (
-  'name' => 'Artwork',
-  'singular_name' => 'Artwork',
-  'menu_name' => 'Artwork',
-  'add_new' => 'Add Artwork',
-  'add_new_item' => 'Add New Artwork',
-  'edit' => 'Edit',
-  'edit_item' => 'Edit Artwork',
-  'new_item' => 'New Artwork',
-  'view' => 'View Artwork',
-  'view_item' => 'View Artwork',
-  'search_items' => 'Search Artwork',
-  'not_found' => 'No Artwork Found',
-  'not_found_in_trash' => 'No Artwork Found in Trash',
-  'parent' => 'Parent Artwork',
-),) );
-register_post_type('motion', array(	'label' => 'Motion','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => '', 'with_front' => false),'query_var' => true,'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes',),'taxonomies' => array('post_tag',),'labels' => array (
-  'name' => 'Motion',
-  'singular_name' => 'Motion',
-  'menu_name' => 'Motion',
-  'add_new' => 'Add Motion',
-  'add_new_item' => 'Add New Motion',
-  'edit' => 'Edit',
-  'edit_item' => 'Edit Motion',
-  'new_item' => 'New Motion',
-  'view' => 'View Motion',
-  'view_item' => 'View Motion',
-  'search_items' => 'Search Motion',
-  'not_found' => 'No Motion Found',
-  'not_found_in_trash' => 'No Motion Found in Trash',
-  'parent' => 'Parent Motion',
-),) );
-register_post_type('websites', array(	'label' => 'Websites','description' => '','public' => true,'show_ui' => true,'show_in_menu' => true,'capability_type' => 'post','hierarchical' => false,'rewrite' => array('slug' => '', 'with_front' => false),'query_var' => true,'supports' => array('title','editor','excerpt','trackbacks','custom-fields','comments','revisions','thumbnail','author','page-attributes',),'taxonomies' => array('post_tag',),'labels' => array (
-  'name' => 'Websites',
-  'singular_name' => 'Website',
-  'menu_name' => 'Websites',
-  'add_new' => 'Add Website',
-  'add_new_item' => 'Add New Website',
-  'edit' => 'Edit',
-  'edit_item' => 'Edit Website',
-  'new_item' => 'New Website',
-  'view' => 'View Website',
-  'view_item' => 'View Website',
-  'search_items' => 'Search Websites',
-  'not_found' => 'No Websites Found',
-  'not_found_in_trash' => 'No Websites Found in Trash',
-  'parent' => 'Parent Website',
-),) );
-
-// Adding Permalinks
-// http://stackoverflow.com/questions/3859852/utilizing-wordpresss-permalink-structure-on-custom-post-types
-function portfolio_permalinks() {
-	// Single posts - must be put above indexes as they take priority
-    add_rewrite_rule(
-        'artwork/([^/]+)',
-        'index.php?artwork=$matches[1]',
-        'top'
-	);
-    add_rewrite_rule(
-        'motion/([^/]+)',
-        'index.php?motion=$matches[1]',
-        'top'
-	);
-    add_rewrite_rule(
-        'websites/([^/]+)',
-        'index.php?websites=$matches[1]',
-        'top'
-	);
-	
-	// Index posts
-    add_rewrite_rule(
-        'artwork',
-        'index.php?post_type=artwork',
-        'top'
-	);
-    add_rewrite_rule(
-        'motion',
-        'index.php?post_type=motion',
-        'top'
-	);
-    add_rewrite_rule(
-        'websites',
-        'index.php?post_type=websites',
-        'top'
-	);
-}
-add_action( 'init', 'portfolio_permalinks' );
-
-/***********************************
-*
-* SEARCH FILTER
-* db2011
-* http://speckyboy.com/2010/09/19/10-useful-wordpress-search-code-snippets/
-*
-***********************************/
-function SearchFilter($query) {
-  if ($query->is_search or $query->is_feed) {
-    // Portfolio
-	if($_GET['post_type'] == "portfolio") {
-		$query->set('post_type', array('artwork', 'websites', 'motion'));
-	}
-	// Tutorials
-	elseif($_GET['post_type'] == "tutorials") {
-		$query->set('category_name','tutorials');
-	}
-	// EVERYTHING! MWAHAHAHAHAHA
-	elseif($_GET['post_type'] == "all") {
-		$query->set('post_type', array('artwork', 'websites', 'motion', 'post'));
-	}
-  }
-  return $query;
-}
-// This filter will jump into the loop and arrange our results before they're returned
-add_filter('pre_get_posts','SearchFilter');
-
-/***********************************
-*
-* CUSTOM SHORTCODES
-* db2010-db2011
-*
-***********************************/
-
-/** 
-Shortcode: Clear
-Usage [clear]
-**/
-function clearCode($atts) {
-	return '<div class="clear">&nbsp;</div>';
-}
-add_shortcode("clear", "clearCode"); 
-
-/** 
-Shortcode: Download Buttons
-Usage type 1: [download file="path/to/file" style="pdf" label="this is a pdf button"]
-Usage type 2: [download file="path/to/file" style="psd" label="this is a psd button"]
-Usage type 3: [download file="path/to/file" style="file" label="this is a file button"]
-Usage type 4: [download file="path/to/file" style="noicon" label="this is a button with no icon"]
-Preceed buttons (or button rows) with [clear] for best results
-**/
-
-function downloadBtn($atts) {  
-	extract(shortcode_atts(array(
-	"style" => 'file',
-	"file" => 'http://',
-	"label" => 'Download',
-	), $atts));
-	
-	# Google Tracking?
-	$enableGoogleTracking = true;
-		
-	if($enableGoogleTracking) {
-		$trackingCode = get_the_title()."/".$label;
-		$tracking = ' onClick="javascript: _gaq.push([\'_trackPageview\', \''.$trackingCode.'\']);"';
-	}
-	
-	$downloadbtn = '<a href="'.$file.'" class="downloadbtn downloadbtn_'.$style.'" title="Download '.$label.'"'.$tracking.'><span class="downloadbtn_icon"></span>'.$label.'</a>';
-	
-	return $downloadbtn;
-}  
-add_shortcode('download', 'downloadBtn');
-
-/** 
-Shortcode: Subheaders
-Usage [subhead]Heading[/subhead]
-**/
-function subheader($atts, $content = null) {
-	extract(shortcode_atts(array(
-	"id" => null
-	), $atts));
-	
-	if($id == null) :
-		return '<h2 class="subheader">'.$content.'</h2>';  
-	else :
-		return '<h2 class="subheader" id="'.$id.'">'.$content.'</h2>';  
-	endif;
-}
-add_shortcode("subhead", "subheader");  
-
-/** 
-Shortcode: Important
-Usage [important]content[/important]
-**/
-function important_tag($atts, $content = null) {
-	return '<span class="message important">'.$content.'</span>';  
-}
-add_shortcode("important", "important_tag");  
-
-/** 
-Shortcode: Info
-Usage [info]content[/info]
-**/
-function info_tag($atts, $content = null) {
-	return '<span class="message info">'.$content.'</span>';  
-}
-add_shortcode("info", "info_tag");  
-
-/** 
-Shortcode: Error
-Usage [error]content[/error]
-**/
-function error_tag($atts, $content = null) {
-	return '<span class="message error">'.$content.'</span>';  
-}
-add_shortcode("error", "error_tag");  
-
-/** 
-Shortcode: Hilight
-Usage [hilight]functions.php[/hilight]
-**/
-function highlight_tag($atts, $content = null) {
-	return '<span class="hilight">'.$content.'</span>';  
-}
-add_shortcode("hilight", "highlight_tag"); 
-
-/** 
-Shortcode: Inline Code Highlight
-Usage [code]functions.php[/code]
-**/
-function code_tag($atts, $content = null) {
-	return '<code class="inline-code">'.$content.'</code>';  
-}
-add_shortcode("code", "code_tag"); 
-
-/** 
-Shortcode: Float Right With Class
-Usage [fright class="test"]This is to the right[/fright]
-**/
-function floatRight($atts) {  
-	extract(shortcode_atts(array(
-	"class" => '',
-	), $atts));
-	
-	$return = '<div class="floatRight '.$class.'">'.$content.'</div>';
-	
-	return $downloadbtn;
-}  
-add_shortcode('floatRight', 'floatRight');
-
-/** 
-Shortcode: Codebox
-Usage [codebox lang="php/javascript/html/etc]content[/codebox]
-Geshi code unceremoniously stolen from WP-Syntax
-Sorry - but it wasn't working with my shortcode, so I had to frankencode it :P
-If you're reading this, check out WP-Syntax, it's pretty cool: 
-http://wordpress.org/extend/plugins/wp-syntax/
-**/
-// Including Geshi
-if(!function_exists('GeShi')) {
-	include_once ('geshi/geshi.php');
-}
-
-// Removing Texturizing
-remove_filter('the_excerpt', 'wptexturize');
-remove_filter('the_content', 'wptexturize');
-remove_filter('comment_text', 'wptexturize');
-// Shortcode Function
-function codebox_tag($atts, $content = null) {
-	extract(shortcode_atts(array("lang" => "php", "line" => "none", "escaped" => "true"), $atts));
-	
-	// Fixing up Wordpress Stuff
-	$content = preg_replace('<<br />>','',$content);
-#	$content = preg_replace('<\n<p>>','',$content);
-#	$content = preg_replace('<</p>\n>', '',$content);
-	if ($escaped == "true") $content = htmlspecialchars_decode($content);
-	
-	// Calling and Configing Geshi...
-	$geshied = new GeSHi($content, $lang);
-	//$geshied->enable_strict_mode(true);
-	$geshied->set_tab_width(8);
-	//$geshied->set_overall_class('codebox');
-	//$geshied->set_header_type(GESHI_HEADER_PRE_VALID);
-	//$geshied->enable_classes();
-
-    if ($line != "none")
-    {
-        $codebox .= "<table class=\"codebox\"><tr><td class=\"line_numbers\">";
-        $codebox .= wp_syntax_line_numbers($content, $line);
-        $codebox .= "</td><td class=\"code\">";
-        $codebox .= $geshied->parse_code();
-        $codebox .= "</td></tr></table>";
-    }
-    else
-    {
-        $codebox .= "<div class=\"codebox\">";
-        $codebox .= $geshied->parse_code();
-        $codebox .= "</div>";
-    }
-	
-	// Parse Code and Output
-	//$codebox = $geshied->parse_code();
-	return $codebox; 
-
-}
-add_shortcode("codebox", "codebox_tag");  
-
-function wp_syntax_line_numbers($code, $start)
-{
-    $line_count = count(explode("\n", $code));
-    $output = "<pre>";
-    for ($i = 0; $i < $line_count; $i++)
-    {
-        $output .= ($start + $i) . "\n";
-    }
-    $output .= "</pre>";
-    return $output;
-}
-
-
-/** 
-* Demo/Download
-* Tutorial buttons for demo link and download link
-**/
-
-function demodownload_tag($atts, $content = null) {
-	extract(shortcode_atts(array("demo" => "", "download" => ""), $atts));
-	$demodownload =  '<div class="ddlbox">';
-	if ($demo != "") {
-		$demodownload .=  '<a href="'.$demo.'" title="View Demo" class="ddlbox_demo">View Demo</a>';
-	}
-	if ($download != "") {
-		$demodownload .=  '<a href="'.$download.'" title="Download Source Files" class="ddlbox_download">Download Files</a>';
-	}
-	$demodownload .=  '</div>';
-	return $demodownload; 
-	
-}
-add_shortcode("demodownload", "demodownload_tag");  
-
-/** 
-* Columns
-* [col span="x" total="y"]content[/col]
-* where "x" or "y" can be 1,2,3,4.
-* eg. [col span=3 total=4] produces a column that is three quaters wide.
-* eg. [col span=1 total=3 first] produces a column that is one third wide.
-**/
-
-function col_tag($atts, $content = null) {
-	extract(shortcode_atts(array("span" => "1", "total" => "1", "first" => ""), $atts));
-	
-	$column = "<div class='col col_".$span."_".$total;
-	
-	if ($first == "true") {$column .= " col_first";}
-	
-	$column .= "'>".$content."</div>";
-	
-	return $column; 
-	
-}
-add_shortcode("col", "col_tag");  
-
-/**
-* Scrobbles
-* [scrobbles]
-**/
-function scrobble_tag($content = null) {
-	$content = "<ul class='scrobbles'>";
-	if (function_exists(wpaudioscrobbler)) {$content .= /* wpaudioscrobbler(); */ "<li>coming soon</li>";} else { $content .= "<li><em>Audioscrobbler module missing or inactive</em></li>"; }
-	$content .= "</ul>";
-	return $content;
-}
-add_shortcode("scrobble", "scrobble_tag");
-
-/** 
-* Comment Buttons
-* Adds buttons to comments for admin actions
-**/
-function delete_comment_link($id) {
-  if (current_user_can('edit_post')) {
-	echo '&bull; <a href="'.admin_url("comment.php?action=cdc&c=$id").'">Delete</a> ';
-	echo '&bull; <a href="'.admin_url("comment.php?action=cdc&dt=spam&c=$id").'">Spam</a>';
-  }
-}
 
 /***********************************
 *
@@ -453,52 +102,6 @@ function getCustomField($theField) {
 		}
 	}
 }
-
-
-/***********************************
-*
-* COMMENTS TEMPLATE
-*
-***********************************/
-if ( ! function_exists( 'twentyten_comment' ) ) :
-function twentyten_comment( $comment, $args, $depth ) {
-	$GLOBALS ['comment'] = $comment; ?>
-	<?php if ( '' == $comment->comment_type ) : ?>
-	<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-		<div id="comment-<?php comment_ID(); ?>">
-		<div class="comment-top">
-        	<div class="comment-author vcard">
-            	<?php $defaultgrav = get_bloginfo("template_url")."/images/default-avatar.png";?>
-				<?php echo get_avatar( $comment, 48, $defaultgrav ); ?>
-				<?php printf( __( '<cite class="fn">%s</cite> <span class="says">says:</span>', 'twentyten' ), get_comment_author_link() ); ?>
-            </div>
-            <div class="comment-meta">
-            	<?php printf( __( '%1$s at %2$s', 'twentyten' ), get_comment_date(),  get_comment_time() ); ?>
-            	&bull; <a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>">Permalink</a>
-            	<?php edit_comment_link( __( 'Edit', 'twentyten' ),' &bull; ','' ); ?>
-	            <?php delete_comment_link(get_comment_ID());  ?>
-			</div>
-		</div>
-        
-		<?php if ( $comment->comment_approved == '0' ) : ?>
-			<span class="comment-moderation"><?php _e( 'Your comment is awaiting moderation.', 'twentyten' ); ?></span>
-			<br />
-		<?php endif; ?>
-
-		<div class="comment-body"><?php comment_text(); ?></div>
-
-		<div class="reply">
-			<?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
-		</div>
-	    </div>
-    <?php # end li omitted, for some reason wordpress adds it anyway, adding it in as you would will only break things ?>
-
-	<?php else : ?>
-	<li class="post pingback">
-		<p><?php _e( 'Pingback: ', 'twentyten' ); ?><?php comment_author_link(); ?><?php edit_comment_link ( __('edit', 'twentyten'), '&nbsp;&nbsp;', '' ); ?></p>
-	<?php endif;
-}
-endif;
 
 
 
@@ -573,16 +176,8 @@ function twentyten_setup() {
 	) );
 
 	// This theme allows users to set a custom background
-	add_custom_background();
-
-	// Your changeable header business starts here
-	if ( ! defined( 'HEADER_TEXTCOLOR' ) )
-		define( 'HEADER_TEXTCOLOR', '' );
-
-	// No CSS, just IMG call. The %s is a placeholder for the theme template directory URI.
-	if ( ! defined( 'HEADER_IMAGE' ) )
-		define( 'HEADER_IMAGE', '%s/images/headers/path.jpg' );
-
+	// add_custom_background();
+	
 	/*
 	// The height and width of your custom header. You can hook into the theme's own filters to change these values.
 	// Add a filter to twentyten_header_image_width and twentyten_header_image_height to change these values.
@@ -601,7 +196,7 @@ function twentyten_setup() {
 
 	// Add a way for the custom header to be styled in the admin panel that controls
 	// custom headers. See twentyten_admin_header_style(), below.
-	add_custom_image_header( '', 'twentyten_admin_header_style' );
+	//add_custom_image_header( '', 'twentyten_admin_header_style' );
 
 	// ... and thus ends the changeable header business.
 

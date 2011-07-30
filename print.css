@@ -1,0 +1,37 @@
+/* PRINT
+------------------------------------------------------------------------ */
+/* Hiding non-print-related things */
+.ie-warning,
+#header,
+#navigation,
+.wp-pagenavi,
+#subsection-column1, /* Not hiding sub-section, just the columns, this way comments are still printed */
+#subsection-column2,
+#subsection-column3,
+#respond,
+.update-title
+{display: none;}
+
+
+/* Design */
+body {font-family: Arial, Helvetica, sans-serif; font-size: 1em; padding: 10px;}
+#breadcrumbs {padding: 10px 0; border-bottom: 1px solid #ccc; margin-bottom: 20px;}
+#footer {margin-top: 20px; clear: both; text-align: center; font-size: .8em;}
+
+/* Blogs */
+.post,
+.update,
+.tutorial {clear: both; margin-bottom: 20px;}
+	.post h1,
+	.update h1,
+	.tutorial h1 {margin: 0; padding: 0;}
+	.blog-post-date {float: left; border-right: 1px solid #ccc; margin-right: 20px; padding-right: 20px;}
+	
+.entry-content a {color: #000; text-decoration: none;}
+.entry-footer {border-top: 1px solid #ccc; text-align: right; color: #444; font-size: 12px; clear: both;}
+	
+.alignright {float: right; margin: 10px;}
+.alignleft {float: left; margin: 10px;}
+
+/* Comments */
+#comments-title {border-bottom: 1px solid #000;}

@@ -39,3 +39,30 @@ This is the theme currently in use at dBaines.com
 
 If you are the creator of any of these resources and have issue with me redistributing them, please let me know. I'll be more than happy to remove your material from this project.
 
+
+## Version History
+
+### Near Future
+* Figure HTML5 elements for wp-caption and wp-galleries
+* Proper HTML5 elements for contact forms
+* Responsive Design for contact form
+* Blue hover for homepage logo
+* Migrate various hard-coded things in to the theme options page
+
+### 1.1 - 2001-07-31
+* Reponsive Design changes for <960 and <600 wide
+* <600 wide is optimised for mobile devices
+* Pseudoelement CSS icons for subsection (dark grey area) and post meta icons
+* Fixed some inconsistent typography
+* Added GooglePlus and Forrst Icon to homepage
+* Plugins.js for minified plugins, moved original non-minified scripts in to /js/src/
+* jQuery from Google CDN, Updated to 1.6.2
+* Add rel="me" (confirm) to links to my profiles on things
+* Re-arranged functions.php, cleaned up, separated large chunks in to manageable files (ie. functions.shortcodes.php)
+* Removed Facebook Likes
+* Added Google +1 Buttons
+* Wordpress Options Page, starting with Google +1 buttons on/off toggle.
+* Updated login css to reflect changes in Wordpress 3.2
+
+### 1.0
+* Initial Release

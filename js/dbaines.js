@@ -40,8 +40,7 @@ $("a.galleryThumbnail").colorbox({
 		var title = $(this).attr("title");
 		var download = '<span id="cboxDownload"><a href="'+url+'" title="Download This Image"><strong>Download</strong></a></span>';
 		var permalink = $(this).attr("data-permalink");
-		var facebook = '<div class="cbox-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href='+permalink+'&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe></div>';
-		return '<span id="cboxTitleLeft">'+title+'</span>'+facebook+download;
+		return '<span id="cboxTitleLeft">'+title+'</span>'+download;
 	}
 });
 
@@ -56,8 +55,8 @@ $("a.galleryMedia").colorbox({
 		var title = $(this).attr("title");
 		var download = '<span id="cboxDownload"><a href="'+url+'" title="Download This Image"><strong>Download</strong></a></span>';
 		var permalink = $(this).attr("data-permalink");
-		var facebook = '<div class="cbox-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href='+permalink+'&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe></div>';
-		return '<span id="cboxTitleLeft">'+title+'</span>'+facebook+download;
+		//var facebook = '<div class="cbox-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href='+permalink+'&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe></div>';
+		return '<span id="cboxTitleLeft">'+title+'</span>'+download;
 	},
 	scrolling:false,
 	onComplete:function(){
@@ -195,6 +194,12 @@ $(".post").each(function() {
 		});
 	});
 });
+
+// History Relling
+$(".historyLeft a").attr({
+	"rel": "history"
+});
+
 $(".wp-cbox").colorbox({
 	opacity: 0.92,
 	scalePhotos: true,

@@ -16,25 +16,23 @@
 </section>
 <footer>
 	<div class="wrapper">
-    	<span class="floatLeft">Copyright &copy; David Baines 2011 &bull; <a href="<?php bloginfo("url"); ?>/?page_id=11">About</a> &bull; <a href="<?php bloginfo("url"); ?>/?page_id=21">Sitemap</a> &bull; <a href="<?php bloginfo("url"); ?>/wp-admin/">Login</a></span>
+    	<span class="floatLeft">Copyright &copy; David Baines 2011 &bull; <a href="<?php bloginfo("url"); ?>/about">About</a> &bull; <a href="<?php bloginfo("url"); ?>/sitemap">Sitemap</a> &bull; <a href="<?php bloginfo("url"); ?>/blog/wp-admin/">Login</a></span>
     </div>
 </footer>
 
-<script type="text/javascript">var templateDir = "<?php bloginfo("template_url"); ?>";</script>
+<script type="text/javascript">
+	// Passing some php variables through to JS so we can do stuff with things
+	var templateDir = "<?php bloginfo("template_url"); ?>";
+	//var gplus = <?php include('functions/get.options.php'); echo $db2011_gplusone; ?>;
+</script>
 
-<?php // Facebook Sscripts ?>
-<div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({appId: '169017283147625', status: true, cookie: true,
-             xfbml: true});
-  };
+<?php // Google +1 - http://www.google.com/webmasters/+1/button/ ?>
+<script type="text/javascript">
   (function() {
-    var e = document.createElement('script'); e.async = true;
-    e.src = document.location.protocol +
-      '//connect.facebook.net/en_US/all.js';
-    document.getElementById('fb-root').appendChild(e);
-  }());
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
 </script>
 
 <?php // Google Analytics ?>
@@ -50,9 +48,9 @@
 </script>
 
 <?php // jQuery and scriptages ?>
-<script src="<?php bloginfo('template_url'); ?>/js/jquery-1.5.min.js"></script>
-<script src="<?php bloginfo('template_url'); ?>/js/jquery.colorbox.js"></script>
-<script src="<?php bloginfo('template_url'); ?>/js/jquery.easySlider1.7.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+<script>window.jQuery || document.write('<script src="<?php bloginfo('template_url'); ?>/js/jquery-1.6.2.min.js">\x3C/script>')</script>
+<script src="<?php bloginfo('template_url'); ?>/js/plugins.js"></script>
 <script src="<?php bloginfo('template_url'); ?>/js/dbaines.js"></script>
 
 <?php wp_footer(); ?>

@@ -108,7 +108,6 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
         
         <article class="websiteContainer">
         
-            <div class="website-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href=<?php the_permalink(); ?>&amp;layout=button_count&amp;show_faces=true&amp;width=120&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe></div>
         	<div class="websiteSliderContainer">
         	<ul class="websiteSlider">
 				<?php 
@@ -214,7 +213,6 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
 			</div><!-- .entry-meta -->
-            <div class="post-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href=<?php the_permalink(); ?>&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
             
             <div class="entry-content">
             	<div class="tutorial-image">
@@ -251,6 +249,11 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
                 <?php endif; ?>
                 <span class="comments-link"><?php comments_popup_link( __( 'Leave a comment', 'twentyten' ), __( '1 Comment', 'twentyten' ), __( '% Comments', 'twentyten' ) ); ?></span>
                 <?php edit_post_link( __( 'Edit', 'twentyten' ), '<span class="meta-sep">|</span> <span class="edit-link">', '</span>' ); ?>
+                <?php // Show +1 Button if turned on
+					include('functions/get.options.php');
+					if($db2011_gplusone) {?>
+                    | <g:plusone size="small" count="false" href="<?php the_permalink(); ?>"></g:plusone>
+                    <?php }	?>
             </div><!-- .entry-utility -->
             <div class="clear"></div>
            
@@ -267,7 +270,6 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 			<div class="entry-meta">
 				Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
 			</div><!-- .entry-meta -->
-            <div class="post-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href=<?php the_permalink(); ?>&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div>
 
 			<div class="entry-summary">
 				<?php the_content('Read More'); ?>
@@ -291,6 +293,11 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 				<?php endif; ?>
 				<span class="comments-link"><?php comments_popup_link( __( 'Leave a comment', 'twentyten' ), __( '1 Comment', 'twentyten' ), __( '% Comments', 'twentyten' ) ); ?></span>
 				<?php edit_post_link( __( 'Edit', 'twentyten' ), '<span class="meta-sep">|</span> <span class="edit-link">', '</span>' ); ?>
+                <?php // Show +1 Button if turned on
+					include('functions/get.options.php');
+					if($db2011_gplusone) {?>
+                    | <g:plusone size="small" count="false" href="<?php the_permalink(); ?>"></g:plusone>
+                    <?php }	?>
 			</div><!-- .entry-utility -->
             <div class="clear"></div>
 		</div><!-- #post-## -->

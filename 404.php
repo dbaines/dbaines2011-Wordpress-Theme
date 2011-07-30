@@ -44,12 +44,16 @@
 
 <article>
 	<div class="wrapper">
-        <a href="<?php bloginfo('url'); ?>" id="logo" class="ir">dBaines.com</a>
+        <a href="<?php bloginfo('url'); ?>" id="logo" class="ir">dBaines.com</a>        
         <p>
         	That's unfortunate! Try the <a href="<?php bloginfo("url"); ?>">homepage</a>.
         </p>
 	</div>
 </article>
+
+<?php // jQuery and scriptages ?>
+<script src="<?php bloginfo('template_url'); ?>/js/jquery-1.5.min.js"></script>
+<script src="<?php bloginfo('template_url'); ?>/js/dbaines.js"></script>
 
 </body>
 </html>

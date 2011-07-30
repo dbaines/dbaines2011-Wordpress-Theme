@@ -36,8 +36,6 @@ get_header(); ?>
             <div class="clear"></div>
 			</div><!-- #content -->
 		</div><!-- #container -->
-	
-		<!-- this will install flowplayer inside previous A- tag. -->
 
 <?php include(TEMPLATEPATH.'/subsection.php'); ?>
 <?php get_footer(); ?>

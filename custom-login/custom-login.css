@@ -5,7 +5,7 @@
 *
 ***********************************/
 html {
-	background: #181818;
+	background: #181818 !important;
 	height: 100%;
 }
 	body {
@@ -66,6 +66,10 @@ html {
 		height: 45px !important;
 		background: none !important;
 		border-width: 0 !important;
+		text-shadow: none;
+		padding-top: 0 !important;
+		position: absolute;
+		top: 20px; left: 10px;
 	}
 	#backtoblog a {
 		line-height: 45px; 

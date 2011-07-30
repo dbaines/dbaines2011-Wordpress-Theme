@@ -3,7 +3,37 @@ Theme Name: dBaines 2011
 Theme URI: http://dbaines.com
 Description: The 2011 theme for dBaines.com
 Author: David Baines
-Version: 0.8
+Version: 1.1
+
+	Far Future
+	- HTML5 Video for Motion Portfolio
+	- Smush.it pass, should be in Near Future really. 
+
+	Near Future
+	- Figure HTML5 elements for wp-caption and wp-galleries
+	- Proper HTML5 elements for contact forms
+	- Responsive Design for contact form
+	- Blue hover for homepage logo
+
+	1.1 - 2001-07-31
+	- Reponsive Design changes for <960 and <600 wide
+	- <600 wide is optimised for mobile devices
+	- Pseudoelement CSS icons for subsection (dark grey area) and post meta icons
+	- Fixed some inconsistent typography
+	- Added GooglePlus and Forrst Icon to homepage
+	- Plugins.js for minified plugins
+	- jQuery from Google CDN, Updated to 1.6.2
+	- Add rel="me" (confirm) to links to my profiles on things
+	- Re-arranged functions.php, cleaned up, separated large chunks in to manageable files (ie. functions.shortcodes.php)
+	- Removed Facebook Likes
+	- Added Google +1 Buttons
+	- Wordpress Options Page!
+		- Google +1 Buttons on/off
+	- Updated login css to reflect changes in Wordpress 3.2
+
+	1.0
+	- Initial Release
+
 */
 
 
@@ -276,17 +306,15 @@ img.size-full,
 		}
 
 /* -- DOWNLOAD BUTTONS -- */
-a.downloadbtn {background: #ccc; color: #222; padding: 2px 10px 2px 60px; position: relative; margin: 13px 0; display: inline-block;
-	-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
+a.downloadbtn {background: #ccc; color: #222; padding: 2px 10px 2px 60px; position: relative; margin: 13px 0; display: inline-block; text-shadow: 1px 1px 0 rgba(255,2552,255,0.6);
+	border-radius: 5px;
 	background: -moz-linear-gradient(100% 100% 90deg, #ccc, #ddd);
 	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ddd), to(#ccc));
-	text-shadow: 1px 1px 0 rgba(255,2552,255,0.6);
+	background: -ms-linear-gradient(100% 100% 90deg, #ccc, #ddd);
+	background: -o-linear-gradient(100% 100% 90deg, #ccc, #ddd);
 }
-a.downloadbtn:hover {background: #3a3a3a; color: #fff; text-decoration: none;
-	-moz-box-shadow: 0 0 2px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5);
+a.downloadbtn:hover {background: #3a3a3a; color: #fff; text-decoration: none; text-shadow: none;
 	box-shadow: 0 0 2px rgba(0,0,0,0.5);
-	text-shadow: none;
 }
 
 a.downloadbtn span.downloadbtn_icon {position: absolute; height: 48px; width: 48px; top: -13px; left: 5px; background-position: bottom left; background-repeat: no-repeat;}
@@ -435,33 +463,44 @@ header hgroup .headerRSS:hover {background-position: bottom left;}
 		#subsection h2:first-child {padding-top: 0;}
 	
 	#subsection ul {margin: 0; padding: 0; list-style: none;}
-		#subsection li {padding: 3px 0 3px 29px; list-style: none; background: url("images/subsection-icons.png") 0 -12px no-repeat;}
 		
-		#subsection .sub-latest-comments li {border-bottom: 1px solid #666; padding: 10px 0 10px 29px; background-position: 0 -466px;}
-		#subsection .sub-browse-date li {background-position: 0 -107px;}
-		#subsection .sub-scrobbles li {background-position: 0 -204px; overflow: hidden; text-overflow: ellipsis; height: 17px;}
-		#subsection .sub-scrobbles li#mylastfm {background-position: 0 -442px;}
-		#subsection .sub-friends li {background-position: 0 -421px;}
-		#subsection .sub-blog-latest li {background-position: 0 -12px;}
+		/* 
+		Pseudo Element Icons: 
+		http://www.splashnology.com/article/coding-icons-with-the-help-of-pseudo-elements-and-css-property-clip/1524/ 
+		*/
 		
-		#subsection .sub-browse-category li.cat-item-16 {background-position: 0 -12px;}
-		#subsection .sub-browse-category li.cat-item-2,
-		#subsection .sub-browse-category li.cat-item-1,
-		#subsection .sub-browse-category li.cat-item-12 {background-position: 0 -36px;}
-		#subsection .sub-browse-category li.cat-item-9 {background-position: 0 -59px;}
-		#subsection .sub-browse-category li.cat-item-13 {background-position: 0 -83px;}
-		#subsection .sub-browse-category li.cat-item-14 {background-position: 0 -107px;}
-		#subsection .sub-browse-category li.cat-item-3 {background-position: 0 -130px;}
-		#subsection .sub-browse-category li.cat-item-6 {background-position: 0 -157px;}
-		#subsection .sub-browse-category li.cat-item-4 {background-position: 0 -180px;}
-		#subsection .sub-browse-category li.cat-item-7,
-		#subsection .sub-browse-category li.cat-item-15 {background-position: 0 -299px;}
-		#subsection .sub-browse-category li.cat-item-11 {background-position: 0 -204px;}
-		#subsection .sub-browse-category li.cat-item-10 {background-position: 0 -229px;}
-		#subsection .sub-browse-category li.cat-item-5 {background-position: 0 -252px;}
-		#subsection .sub-browse-category li.cat-item-8 {background-position: 0 -279px;}
-		#subsection .sub-browse-category li.cat-item-18 {background-position: 0 -321px;}
-		#subsection .sub-browse-category li.cat-item-17 {background-position: 0 -347px;}
+		#subsection li {position: relative; padding: 3px 0 3px 29px; list-style: none; overflow: hidden;}
+		#subsection li:before {content: url('images/subsection-icons.png'); position: absolute; top: -12px; left: 0; clip: rect(12px 29px 30px 0);}
+		#subsection .sub-latest-comments li:before {clip: rect(466px 29px 496px 0); top: -466px;}
+		#subsection .sub-browse-date li:before {clip: rect(107px 29px 137px 0); top: -107px;}
+		#subsection .sub-scrobbles li:before {clip: rect(204px 29px 234px 0); top: -204px;}
+		#subsection .sub-scrobbles li#mylastfm:before {clip: rect(442px 29px 462px 0); top: -442px;}
+		#subsection .sub-friends li:before {clip: rect(421px 29px 451px 0); top: -421px;}
+		#subsection .sub-blog-latest li:before {clip: rect(12px 29px 42px 0); top: -12px;}
+		
+		/* Category Icons */
+		#subsection .sub-browse-category li.cat-item-16:before {clip: rect(12px 29px 42px 0); top: -12px;}
+		#subsection .sub-browse-category li.cat-item-2:before,
+		#subsection .sub-browse-category li.cat-item-1:before,
+		#subsection .sub-browse-category li.cat-item-12:before {clip: rect(36px 29px 66px 0); top: -36px;}
+		#subsection .sub-browse-category li.cat-item-9:before {clip: rect(59px 29px 83px 0); top: -59px;}
+		#subsection .sub-browse-category li.cat-item-13:before {clip: rect(83px 29px 107px 0); top: -83px;}
+		#subsection .sub-browse-category li.cat-item-14:before {clip: rect(107px 29px 130px 0); top: -107px;}
+		#subsection .sub-browse-category li.cat-item-3:before {clip: rect(130px 29px 157px 0); top: -130px;}
+		#subsection .sub-browse-category li.cat-item-6:before {clip: rect(157px 29px 180px 0); top: -157px;}
+		#subsection .sub-browse-category li.cat-item-4:before {clip: rect(180px 29px 204px 0); top: -180px;}
+		#subsection .sub-browse-category li.cat-item-7:before,
+		#subsection .sub-browse-category li.cat-item-15:before {clip: rect(299px 29px 321px 0); top: -299px;}
+		#subsection .sub-browse-category li.cat-item-11:before {clip: rect(204px 29px 229px 0); top: -204px;}
+		#subsection .sub-browse-category li.cat-item-10:before {clip: rect(229px 29px 252px 0); top: -229px;}
+		#subsection .sub-browse-category li.cat-item-5:before {clip: rect(252px 29px 279px 0); top: -252px;}
+		#subsection .sub-browse-category li.cat-item-8:before {clip: rect(279px 29px 320px 0); top: -279px;}
+		#subsection .sub-browse-category li.cat-item-18:before {clip: rect(321px 29px 347px 0); top: -321px;}
+		#subsection .sub-browse-category li.cat-item-17:before {clip: rect(347px 29px 372px 0); top: -347px;}
+		
+		/* Other styles */
+		#subsection .sub-latest-comments li {border-bottom: 1px solid #666; padding: 10px 0 10px 29px;}
+		#subsection .sub-scrobbles li {text-overflow: ellipsis; height: 17px;}
 		
 		.sub-latest-comments li small,
 		.sub-blog-latest li small {display: block; line-height: 1.2em; margin-bottom: 5px;}
@@ -503,14 +542,20 @@ footer a:hover {color: #818181;}
 				box-shadow: 0 0 10px rgba(0,0,0,0.8); border-radius: 10px;
 				background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(78,155,200)), color-stop(1, rgb(118,203,252)));
 				background-image: -moz-linear-gradient(center bottom, rgb(78,155,200) 0%, rgb(118,203,252) 100%);
+				background-image: -ms-linear-gradient(center bottom, rgb(78,155,200) 0%, rgb(118,203,252) 100%);
+				background-image: -o-linear-gradient(center bottom, rgb(78,155,200) 0%, rgb(118,203,252) 100%);
 				}
 				.homepageSlider h3 a:hover {background: #7ebee4;
 					background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, rgb(78,155,200)),color-stop(1, rgb(171,224,254)));
 					background-image: -moz-linear-gradient(center bottom, rgb(78,155,200) 0%, rgb(171,224,254) 100%);
+					background-image: -ms-linear-gradient(center bottom, rgb(78,155,200) 0%, rgb(171,224,254) 100%);
+					background-image: -o-linear-gradient(center bottom, rgb(78,155,200) 0%, rgb(171,224,254) 100%);
 					}
 				.homepageSlider h3 a:active {background: #4e9bc8;
 					background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(118,202,251)), color-stop(1, rgb(77,154,199)));
 					background-image: -moz-linear-gradient(center bottom,rgb(118,202,251) 0%,rgb(77,154,199) 100%);
+					background-image: -ms-linear-gradient(center bottom,rgb(118,202,251) 0%,rgb(77,154,199) 100%);
+					background-image: -o-linear-gradient(center bottom,rgb(118,202,251) 0%,rgb(77,154,199) 100%);
 					}
 
 .home #subsection .wrapper {border-top: 1px solid #2a2a2a; border-color: rgba(255,255,255,0.08); padding-top: 10px !important; min-height: 25px;}
@@ -519,6 +564,8 @@ footer a:hover {color: #818181;}
 	
 	#subsection .homepageFeeds {float: right; margin: 0; padding: 0; list-style: none; position: relative; background: none;}
 	.homepageFeeds h2 {text-align: right;}
+	
+		#subsection .homepageFeeds li {overflow: visible;}
 	
 		#subsection .homepageFeeds > li > a {display: block; width: 104px; min-height: 25px; background: url("images/feed-button.gif") top right no-repeat; text-indent: -9999px; outline: none;}
 		#subsection .homepageFeeds > li:hover a {background-position: bottom right;}
@@ -529,7 +576,12 @@ footer a:hover {color: #818181;}
 		#subsection .homepageFeeds ul li a {display: block; color: #fff; padding: 3px; text-shadow: 1px 1px 0 rgba(0,0,0,0.3); font-size: 16px; font-family: TitilliumText22LXBold, Arial, Helvetica, sans-serif;}
 		#subsection .homepageFeeds ul li a:hover {background: #ff7d38;}
 	
+
 	#subsection .homepageLinks ul, #subsection .homepageLinks li {float: left; list-style: none; margin: 0; padding: 0; background: none;}
+	
+	/* Hiding the Pseudoelement icons for homepage, these elements are entirely images, no pseudobidness needed */
+	.homepageLinks li:before, .homepageFeeds li:before {display: none;}
+	
 	.homepageLinks a {float: left; margin-right: 10px; background: url("images/social.png") top left no-repeat; width: 18px; height: 18px; text-indent: -999px; outline: none;}
 	.homepageLinks a.reddit {background-position: 0 0;}
 	.homepageLinks a.lastfm {background-position: -24px 0;}
@@ -538,6 +590,8 @@ footer a:hover {color: #818181;}
 	.homepageLinks a.digg {background-position: -99px 0;}
 	.homepageLinks a.linkedin {background-position: -124px 0;}
 	.homepageLinks a.steam {background-position: -146px 0; width: 19px;}
+	.homepageLinks a.gplus {background-position: -174px 0; width: 16px;}
+	.homepageLinks a.forrst {background-position: -198px 0; width: 14px;}
 	
 	.homepageLinks a.reddit:hover {background-position: 0 -20px;}
 	.homepageLinks a.lastfm:hover {background-position: -24px -20px;}
@@ -546,6 +600,8 @@ footer a:hover {color: #818181;}
 	.homepageLinks a.digg:hover {background-position: -99px -20px;}
 	.homepageLinks a.linkedin:hover {background-position: -124px -20px;}
 	.homepageLinks a.steam:hover {background-position: -146px -20px;}
+	.homepageLinks a.gplus:hover {background-position: -174px -20px;}
+	.homepageLinks a.forrst:hover {background-position: -198px -20px;}
 
 /* ------------------------------------------------------------------------------
 	PORTFOLIO - ARTWORK/MOTION
@@ -630,6 +686,11 @@ footer a:hover {color: #818181;}
 .cf-sb input {margin-left: 120px;}
 .linklove {display: none;}
 
+/* History */
+.historyContainer {padding-top: 25px;}
+.historyLeft {float: left; width: 310px;}
+.historyRight {float: right; width: 640px;}
+
 /* ------------------------------------------------------------------------------
 	BLOG
 ------------------------------------------------------------------------------ */
@@ -667,7 +728,7 @@ footer a:hover {color: #818181;}
 /* Index */
 .entry-title {font-family: TitilliumText22LXBold, Arial, Helvetica, sans-serif; font-size: 24px; font-weight: normal; padding: 0;}
 .entry-meta {color: #7c7c7c;}
-.entry-summary, .entry-content {padding: 20px 0; line-height: 1.5;}
+.entry-summary, .entry-content {padding: 20px 0; line-height: 1.5; overflow: hidden;}
 a.more-link, a.readmore, a.read_more, p.websiteLink a, .cancel-comment-reply a {background: #3a3a3a; color: #fff; padding: 5px 10px; text-shadow: none;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -677,14 +738,20 @@ a.more-link, a.readmore, a.read_more, p.websiteLink a, .cancel-comment-reply a {
 
 /* Single */
 .entry-meta-large {clear: both; padding: 20px 0 0 0; border-top: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1); margin: 0; list-style: none;}
-.entry-meta-large li {padding: 5px 0 5px 30px; background: url("images/post-meta.png") top left no-repeat;}
-.entry-meta-large .edit {background-position: top left;}
-.entry-meta-large .time {background-position: 0 -34px;}
-.entry-meta-large .music {background-position: 0 -62px;}
-.entry-meta-large .category {background-position: 0 -94px;}
-.entry-meta-large .nextpost {background-position: 0 -126px;}
-.entry-meta-large .prevpost {background-position: 0 -157px;}
-.entry-meta-large .tags {background-position: 0 -190px;}
+
+/* 
+Pseudo Element Icons: 
+http://www.splashnology.com/article/coding-icons-with-the-help-of-pseudo-elements-and-css-property-clip/1524/ 
+*/
+.entry-meta-large li {position: relative; padding: 5px 0 5px 30px;}
+.entry-meta-large li:before {content: url('images/post-meta.png'); position: absolute; top: 0; left: 0; clip: rect(0 28px 28px 0);}
+.entry-meta-large .edit:before {clip: rect(0 28px 28px 0);}
+.entry-meta-large .time:before {clip: rect(34px 28px 62px 0); top: -34px;}
+.entry-meta-large .music:before {clip: rect(62px 28px 90px 0); top: -62px;}
+.entry-meta-large .category:before {clip: rect(94px 28px 122px 0); top: -94px;}
+.entry-meta-large .nextpost:before {clip: rect(126px 28px 154px 0); top: -126px;}
+.entry-meta-large .prevpost:before {clip: rect(157px 28px 185px 0); top: -157px;}
+.entry-meta-large .tags:before {clip: rect(190px 28px 218px 0); top: -190px;}
 
 /* Tutorials */
 .tutorial-image {float: left; margin-right: 15px; clear: both; width: 325px;}
@@ -702,15 +769,17 @@ h3 {font-size: 24px; font-weight: normal;}
 	COMMENTS
 ------------------------------------------------------------------------------ */
 #comments-container {clear: both; padding: 10px;}
-	#comments-container h2, #respond h2 {margin-bottom: 5px; text-transform: uppercase;}
+	#comments-container h2, #respond h2 {margin-bottom: 5px;}
 
 	.nocomments {text-align: center; color: #828282; font-size: 16px;}
+	
+	#subsection ol.commentlist li:before {display: none;}
 	
 	#subsection ol.commentlist {margin: 0px; padding: 0px;}
 	#subsection ol.commentlist li.comment,
 	#subsection ol.commentlist li.pingback {border-bottom: 2px solid #434343; margin-bottom: 15px; background: none; padding-left: 0px !important; list-style: none;}
 	ol.commentlist li.comment div.comment-top,
-	ol.commentlist li.pingback div.comment-top {background: #434343; height: 52px;}
+	ol.commentlist li.pingback div.comment-top {background: #434343; min-height: 52px;}
 		ol.commentlist li.comment div.comment-top img,
 		ol.commentlist li.pingback div.comment-top img {float: left; margin: 2px 10px 2px 2px;}
 		ol.commentlist li.comment div.comment-author,
@@ -934,6 +1003,7 @@ html.error4042 p {position: absolute; bottom: 0; left: 95px; color: #fff; font-s
 html.error4042 a:visited, html.error404 a:link {color: #df3333;}
 html.error4042 a:hover {color: #fff;}
 
+
 /* ------------------------------------------------------------------------------
 	FONTS
 ------------------------------------------------------------------------------ */
@@ -1008,25 +1078,94 @@ html.error4042 a:hover {color: #fff;}
 /* ------------------------------------------------------------------------------
 	MOBILE SITE
 ------------------------------------------------------------------------------ */
+@media (max-width: 960px) {
+	.wrapper {max-width: 100%; width: auto; padding: 0 20px;}
+	
+	/* Tutorials */
+	.tutorial-image,
+	.tutorial-post {float: none; width: auto; padding: 10px 0; margin: 0;}
+	
+	/* Blog List */
+	.category-link a {margin-left: 0; display: none;}
+	
+	/* Images */
+	.wp-caption, .wp-caption img, img.size-full, .gallery dl.gallery-item dt.gallery-icon a img, .galleryImage img, .tutorial-image a img,
+	.websiteSlider img  {max-width: 100% !important; width: auto !important; height: auto;}
+	.alignright.wp-caption, .alignleft.wp-caption {margin: 0 0 20px 0; float: none;}
+	#cboxTitle {display: none !important;}
+	#cboxContent {padding-bottom: 0 !important;}
+	#cboxNext, #cboxPrevious {display: none !important;}
+	
+}
+
+/* ------------------------------------------------------------------------------
+	MOBILE SITE
+------------------------------------------------------------------------------ */
 @media (max-width: 600px) {
 	
 	/* Common */
 	.floatRight, .floatLeft {float: none;}
 	
 	/* Design */
-	.wrapper {max-width: 100%; width: auto;}
+	.wrapper {max-width: 100%; width: auto; padding: 0;}
 	#body .wrapper, #subsection .wrapper, footer .wrapper {padding: 10px;}
-	header #logo {display: block; width: 100%;}
-	header #search {position: static; clear: both; width: 100%;}
-		#search input#s {width: 90%; margin-bottom: 5px;}
+	header #logo {display: block; float: left; width: 20%; margin-top: 10px; background-position: center;}
+	header #search {position: static; float: right; width: auto;}
+		#search input#s {margin-bottom: 5px;}
 		#search button {margin-bottom: 10px;}
-		#search #searchAnchor {float: left; text-indent: 0; padding-left: 30px; width: auto; background-position: -73px 0; background-repeat: no-repeat; line-height: 24px;}
+		#search #searchAnchor {display: none;}
 		#search.searchOptionsGo #searchAnchor {background-position: -73px -24px; color: #fff;}
-	header nav {margin: 0; float: none; clear: both; border: 1px solid rgba(255, 255, 255, 0.08); border-width: 1px 0;}
-		header nav ul, header nav li {display: block; float: none;}
-		header nav a {display: block; width: 100%; float: none !important; text-align: center; border: none !important; padding: 10px 0 !important;}
-		header nav a:hover {background: #000;}
-		header nav ul li:hover ul {display: none !important;}
+		
+	header hgroup {padding: 20px !important;}
+	header hgroup .headerRSS {display: none;}
+	#nav-above {display: none;}
+	
+	/* Search */
+	form#search {padding: 10px 5px;}
+	#searchMain {padding: 0; border: 1px solid #000; background: #fff; padding: 1px; border-radius: 5px; height: 45px;}
+		header input#s {width: auto; float: left; background: #ccc; border: none !important; margin: 0 !important; border-top-left-radius: 5px; border-bottom-left-radius: 5px; outline: none; height: 45px; -webkit-appearance: none; box-shadow: none;}
+		#searchMain, header input#s {
+			background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FEFEFE), color-stop(1, #D4D4D4));
+			background-image: -moz-linear-gradient(center bottom, #FEFEFE 0%, #D4D4D4 100%);
+			background-image: -ms-linear-gradient(center bottom, #FEFEFE 0%, #D4D4D4 100%);
+			background-image: -o-linear-gradient(center bottom, #FEFEFE 0%, #D4D4D4 100%);
+			}
+		header #search button {margin: 0; float: right; background: blue; border: 0; border-radius: 5px; height: 45px;
+			background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #4e82c9), color-stop(1, #6a9bde));
+			background-image: -moz-linear-gradient(center bottom, #4e82c9 0%, #6a9bde 100%);
+			background-image: -ms-linear-gradient(center bottom, #4e82c9 0%, #6a9bde 100%);
+			background-image: -o-linear-gradient(center bottom, #4e82c9 0%, #6a9bde 100%);
+			}
+		header input#s:focus {box-shadow: inset 0 0 10px rgba(0,0,0,0.5);}
+		
+	/* Navigation ala Internal */
+	header nav {float: none; margin: 0; clear: both; overflow: hidden; border-bottom: 1px solid #5b5b5b;}
+	header nav ul {float: none;}
+	header nav ul li {float: left; width: 33.3%;}
+	header nav ul li a {display: block; text-align: center; float: none;}
+	header nav ul li a:hover {border-color: transparent; background: #000;}
+	
+	header nav ul li a.current {border: 1px solid #468FB9; border-width: 0 0 5px 0;}
+	
+	header nav ul ul {display: none;}
+	
+	/* Removing Facebizzle */
+	.post-fblike, 
+	.single-fblike {display: none;}
+		
+	/* Navigation ala Homepage */
+	.home.page header nav {margin: 0; float: none; clear: both; border-bottom: 1px solid #5b5b5b;}
+		.home.page header nav ul, .home.page header nav li {display: block; float: none;}
+		.home.page header nav li {width: 100%;}
+		.home.page header nav a {display: block; width: 100%; float: none !important; text-align: left; text-indent: 20px; border: none !important; padding: 0 !important; line-height: 68px !important; text-transform: capitalize; font-weight: bold; color: #fff !important; border-top: 1px solid #5b5b5b !important;
+			background-image: -webkit-gradient(linear,left bottom, left top, color-stop(0, rgb(24,24,24)), color-stop(1, rgb(56,56,56)));
+			background-image: -moz-linear-gradient(center bottom, rgb(24,24,24) 0%, rgb(56,56,56) 100%);
+			background-image: -ms-linear-gradient(center bottom, rgb(24,24,24) 0%, rgb(56,56,56) 100%);
+			background-image: -o-linear-gradient(center bottom, rgb(24,24,24) 0%, rgb(56,56,56) 100%);
+			}
+		.home.page header nav a:hover {background: #000;}
+		.home.page header nav ul ul {display: none !important;}
+		
 	header hgroup {padding: 10px;}
 	footer .wrapper {background: none; line-height: 1.2;}
 		
@@ -1036,10 +1175,13 @@ html.error4042 a:hover {color: #fff;}
 	.home #subsection {padding-top: 10px;}
 	.home #subsection h2 {display: none;}
 	.home #subsection .wrapper {border: none;}
-	#subsection .homepageLinks, #subsection .homepageFeeds {padding: 10px; float: none; clear: both;}
+	#subsection .homepageLinks, #subsection .homepageFeeds {padding: 10px; float: none !important; clear: both;}
+		#subsection .homepageLinks ul,
 		#subsection .homepageLinks li,
-		#subsection .homepageFeeds li {display: block; float: none; background: none;}
+		#subsection .homepageFeeds li {display: block; float: none !important; background: none;}
 		#subsection .homepageLinks:before {content: "Find Me Around the Web"; font-weight: bold;}
+
+		#subsection .homepageFeeds {display: none;}
 		#subsection .homepageLinks a,
 		#subsection .homepageFeeds > li > a {background: none; float: none; text-indent: 0; min-height: 0;}
 		#subsection .homepageFeeds > li > a {font-weight: bold; color: #fff;}
@@ -1051,33 +1193,37 @@ html.error4042 a:hover {color: #fff;}
 	.pageAbout .floatRight p, .pageAbout .floatRight ul {display: none;}
 	.pageAbout .floatRight p:first-child {display: block;}
 	
-	/* Images */
-	.wp-caption, .wp-caption img, img.size-full, .gallery dl.gallery-item dt.gallery-icon a img, .galleryImage img, .tutorial-image a img,
-	.websiteSlider img  {max-width: 100% !important; width: auto !important; height: auto;}
-	.alignright.wp-caption, .alignleft.wp-caption {margin: 0; float: none;}
-	#cboxTitle {display: none !important;}
-	#cboxContent {padding-bottom: 0 !important;}
-	#cboxNext, #cboxPrevious {display: none !important;}
+	/* Hiding Images, not necessary */
+	.entry-summary .wp-caption,
+	.entry-content .tutorial-image {display: none;}
 	
-	/* Blog */
-	
-	/* Tutorials */
-	.tutorial-image,
-	.tutorial-post {float: none; width: auto; padding: 10px 0; margin: 0;}
+	/* Blog Galleries */
+	.gallery br {display: none;}
+	.gallery dl.gallery-item {float: none; width: auto;}
 	
 	/* Subsection */
 	#subsection #subsection-columns {background: none;}
-	#subsection-column1, #subsection-column2, #subsection-column3 {width: 100%; padding: 10px 0; float: none;}
+	#subsection-column1, #subsection-column2, #subsection-column3 {width: 100%; padding: 10px 0; float: none; display: none;}
+	.blog #subsection-column1 {display: block;}
 	
-	/* Portfolio */
+	/* Portfolio Websites */
 	.websiteSliderContainer  {height: auto; width: 100%; float: none;}
 	.websiteContainer  ol.controls {position: static; float: right; clear: both; padding: 10px 0;}
 	.websiteInfo {clear: both; padding: 10px 0; float: none; width: auto;}
 	.websiteSlider a, .websiteSlider li, .websiteSlider ul, .websiteSlider img {width: auto;}
+	
+	/* Portfolio Gallery */
 	.galleryImage {margin: 0; float: none;}
-	.galleryImage img {margin: 10px 0;}
+	.galleryImage img {margin-bottom: 10px;}
+	
+	/* Portfolio Homepage - Not ideal layout, but the images were being unruly. Might try again in the future. */
+	.portfolioHomeContainer .galleryImage {width: 100%; height: 120px; margin-bottom: 20px;}
+	.portfolioHomeContainer .galleryImage img {display: none;}
+	.portfolioHomeContainer .galleryImage span {width: 100%; top: 0; left: 0; line-height: 120px;}
 	
 	/* Comments */
+	#respond-left, #respond-right {float: none; width: 100%;}
+	#respond-right {padding-top: 20px;}
 }
 
 /* ------------------------------------------------------------------------------

@@ -14,7 +14,6 @@
 	<?php // Insano Title of +10 Insanity ?>
     <title><?php
         global $page, $paged;
-	
         wp_title( '|', true, 'right' );
     
 		// Custom Post Types in Title
@@ -42,7 +41,7 @@
         ?>
     </title>
     
-	<?php // Modernizr in Header, everything else in footer ?>
+	<?php // Modernizr & Flowplayer in Header, everything else in footer ?>
     <script src="<?php bloginfo('template_url'); ?>/js/modernizr-1.6.min.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/flowplayer-3.2.6.min.js"></script>
 
@@ -64,25 +63,44 @@
 	<link href="<?php bloginfo('url'); ?>/?post_type=all&feed=rss2" rel="alternate" type="application/atom+xml" title="dBaines.com - All Posts" />
 	<link href="<?php bloginfo('comments_rss2_url'); ?>" rel="alternate" type="application/atom+xml" title="dBaines.com - Blog Comments" />
     
-    <?php // Facebook Stuff ?>
-    <meta property="og:type" content="website" /> 
-    <?php // Facebook Share Icons
+    <?php 
+	// Social Share Thumbnails
+	// Uses a post-thumbnail if available, otherwise uses a generic image
 		
 		// Get Any Post Thumbnails (Tutorials/Motion/Websites)
 		if (is_single() && has_post_thumbnail()) {
 			$FullImage = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'thumbnail');
 			$LargeImageLink = $FullImage[0];
+			
+			// Facebook Thumbnail
 			echo '<meta property="og:image" content="'.$LargeImageLink.'" />';
+			
+			// Non-Facebook Thumbnail
+			echo '<link rel="image_src" href="'. $LargeImageLink .'" />';
 		}
 		
 		// If Artwork
 		elseif(get_post_type(get_the_ID()) == "artwork") {
+			
 			$imageid = get_post_meta($post->ID, 'File Upload', true); 
 			$LargeImageLink = wp_get_attachment_url( $imageid );
+			
+			// Facebook Image
 		    echo '<meta property="og:image" content="'.$LargeImageLink.'" />';
+			
+			// Non-Facebook Image
+			echo '<link rel="image_src" href="'. $LargeImageLink .'" />';
+			
 		} else {
+	
+	// If there is no post thumbnail, fall back to genetic image
 	?>
-    <meta property="og:image" content="<?php bloginfo("template_url"); ?>/images/facebook.png" /><?php } ?>
+    <meta property="og:image" content="<?php bloginfo("template_url"); ?>/images/facebook.png" />
+    <link rel="image_src" href="<?php bloginfo("template_url"); ?>/images/facebook.png" />
+    <?php } ?>
+    
+    <?php // Facebook Stuff ?>
+    <meta property="og:type" content="website" /> 
     <meta property="og:site_name" content="dBaines.com" /> 
     <meta property="fb:admins" content="537643353" /> 
     <meta property="fb:app_id" content="169017283147625" /> 
@@ -113,7 +131,11 @@
             <ul>
                 <li><a href="<?php bloginfo('url'); ?>/about" <?php 
 					if(is_page('about') or is_page('my computer')) {echo "class='current'";} 
-					?>>about</a></li>
+					?>>about</a>
+                    <ul>
+                    	<li><a href="<?php bloginfo('url'); ?>/about#contact">Contact Me</a></a>
+                    </ul>
+                </li>
                 <li><a href="<?php bloginfo('url'); ?>/blog" <?php 
 					if(
 						is_page('blog') or 
@@ -204,7 +226,13 @@
             </h1>
             <?php 
 				if(is_single()) { ?>
-            		<h3>Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time> <div class="single-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href=<?php the_permalink(); ?>&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe></div></h3>
+            		<h3>Posted on <time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time>
+						 <?php // Show +1 Button if turned on
+                        include('functions/get.options.php');
+                        if($db2011_gplusone) {?>
+                        | <g:plusone size="small" count="false" href="<?php the_permalink(); ?>"></g:plusone>
+                        <?php }	?>
+                    </h3>
             <?php 
 				}
 				elseif(!is_search() && is_category()) {
