@@ -125,7 +125,7 @@ add_shortcode('floatRight', 'floatRight');
 
 /*************************************************
 Shortcode: Codebox
-Usage [codebox lang="php/javascript/html/etc]content[/codebox]
+Usage [codebox lang="php/javascript/html/etc"]content[/codebox]
 Geshi code unceremoniously stolen from WP-Syntax
 Sorry - but it wasn't working with my shortcode, so I had to frankencode it :P
 If you're reading this, check out WP-Syntax, it's pretty cool: 
@@ -201,6 +201,16 @@ function wp_syntax_line_numbers($code, $start)
     return $output;
 }
 
+/*************************************************
+Shortcode: Tab
+Usage [tab]
+Two spaces
+*************************************************/
+function tab_tag($content = null) {
+	$content = "&nbsp;&nbsp;";
+	return $content;
+}
+add_shortcode("tab", "tab_tag");
 
 /*************************************************
 * Demo/Download

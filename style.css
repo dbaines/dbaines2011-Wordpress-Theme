@@ -3,7 +3,7 @@ Theme Name: dBaines 2011
 Theme URI: http://dbaines.com
 Description: The 2011 theme for dBaines.com
 Author: David Baines
-Version: 1.2
+Version: 1.3
 
 	Far Future
 	- HTML5 Video for Motion Portfolio
@@ -15,9 +15,14 @@ Version: 1.2
 	Near Future
 	- Responsive Design for contact form
 	- Blue hover for homepage logo
-	- Fix mobile search input rendering in firefox
 	- Wordpress Options
 		- Post thumbnails for all posts on/off?
+	- Add support for Wordpress Menu - on/off as Theme Option?
+		
+	1.3 - 2011-08-01
+	- Fixed search input rendering in Firefox for the mobile display
+	- Added +1 buttons to portfolio colourbox popups (dbaines.js)
+	- Added +1 buttons to websites loop
 	
 	1.2 - 2011-07-31
 	- Fixed the 1.1 date (2011, not 2001)
@@ -643,6 +648,8 @@ footer a:hover {color: #818181;}
 		
 	#single .galleryIamge {margin: 0;}
 
+#cboxGplus{position: absolute; bottom: -20px; left: 0;}
+
 /* ------------------------------------------------------------------------------
 	PORTFOLIO - WEBSITES
 ------------------------------------------------------------------------------ */
@@ -672,6 +679,8 @@ footer a:hover {color: #818181;}
 			.websiteContainer #smallNext a {right: 10px; background-position: -17px -17px;}
 			.websiteContainer #smallPrev a:hover {background-position: 0px 0px;}
 			.websiteContainer #smallNext a:hover {background-position: -17px 0px;}
+			
+			.websiteContainer .webPlusOne {position: absolute; bottom: 15px; left: 330px;}
 			
 			.websiteContainer .controls {position: absolute; bottom: 15px; right: 0; float: right;}
 				.websiteContainer .controls,

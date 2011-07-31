@@ -40,7 +40,15 @@ $("a.galleryThumbnail").colorbox({
 		var title = $(this).attr("title");
 		var download = '<span id="cboxDownload"><a href="'+url+'" title="Download This Image"><strong>Download</strong></a></span>';
 		var permalink = $(this).attr("data-permalink");
-		return '<span id="cboxTitleLeft">'+title+'</span>'+download;
+		//var facebook = '<div class="cbox-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href='+permalink+'&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe></div>';
+		return '<span id="cboxTitleLeft">'+title+'</span><span id="cboxGplus"></span>'+download;
+	},
+	onComplete: function() {
+		// +1 Button
+		if (gplus == true) {
+			var permalink = $(this).attr("data-permalink");
+			gapi.plusone.render("cboxGplus", {"size": "small", "count": gplus_count, "href": permalink});
+		}
 	}
 });
 
@@ -56,13 +64,20 @@ $("a.galleryMedia").colorbox({
 		var download = '<span id="cboxDownload"><a href="'+url+'" title="Download This Image"><strong>Download</strong></a></span>';
 		var permalink = $(this).attr("data-permalink");
 		//var facebook = '<div class="cbox-fblike"><iframe src="http://www.facebook.com/plugins/like.php?href='+permalink+'&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px;" allowTransparency="true"></iframe></div>';
-		return '<span id="cboxTitleLeft">'+title+'</span>'+download;
+		return '<span id="cboxTitleLeft">'+title+'</span><span id="cboxGplus"></span>'+download;
 	},
 	scrolling:false,
 	onComplete:function(){
+			// Flowplayer settings
 			var thumbnail = $("#cboxLoadedContent").children("img").attr("src");
 			var video = $(this).attr('data-video');
 			var flvp = templateDir+"/flowplayer/flowplayer-3.2.6.swf";
+			
+			// +1 Button
+			if (gplus == true) {
+				var permalink = $(this).attr("data-permalink");
+				gapi.plusone.render("cboxGplus", {"size": "small", "count": gplus_count, "href": permalink});
+			}
 			
 			// Calling Flowplayer inside Colorbox, woah!
 			$("#cboxLoadedContent").html('<a href="'+video+'" id="player"></a>');
@@ -71,6 +86,7 @@ $("a.galleryMedia").colorbox({
 									autoPlay: false,
 									autoBuffering: true
 							},
+							// This is probably a bit excessive
 							plugins:{
 									"controls":{
 										"timeColor":"#ffffff",

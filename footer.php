@@ -32,11 +32,12 @@
 <script type="text/javascript">
 	// Passing some php variables through to JS so we can do stuff with things
 	var templateDir = "<?php bloginfo("template_url"); ?>";
-	//var gplus = <?php include('functions/get.options.php'); echo $db2011_gplusone; ?>;
+	var gplus = <?php include('functions/get.options.php'); echo ($db2011_gplusone == true ? "true" : "false"); ?>;
+	var gplus_count = <?php include('functions/get.options.php'); echo ($db2011_gplusone_count == true ? "true" : "false"); ?>;
 </script>
 
 <?php // Google +1 - http://www.google.com/webmasters/+1/button/ ?>
-<script type="text/javascript">
+<script>
   (function() {
     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
     po.src = 'https://apis.google.com/js/plusone.js';
