@@ -46,6 +46,7 @@ This is the theme currently in use at dBaines.com
 * Modernizr
 * EasySlider
 * Colorbox
+* Flowplayer
 
 ### Fonts:
 
@@ -57,13 +58,27 @@ If you are the creator of any of these resources and have issue with me redistri
 ## Version History
 
 ### Near Future
-* Figure HTML5 elements for wp-caption and wp-galleries
-* Proper HTML5 elements for contact forms
 * Responsive Design for contact form
 * Blue hover for homepage logo
-* Migrate various hard-coded things in to the theme options page
+* Fix mobile search input rendering in firefox
+* Additional Wordpress Options
+	* All posts have post-thumbnail on/off
 
-### 1.1 - 2001-07-31
+### 1.2 - 2011-07-31
+* Fixed the 1.1 date (2011, not 2001)
+* Figure HTML5 elements for wp-captions
+* Figure HTML5 elements for tutorial post thumbnails
+* Figure elements for code blocks, adding caption option to codeblock shortcode
+* HTML5 form fields for comments form
+* Removed some vendor prefixes for some box shadows and rounded corners as the major browsers now use non-vendor-prefixes.
+* Fixed some more inconsistent typography
+* New Wordpress Theme Options:
+	* Google Plus "count" bubbles on/off
+	* Footer Text
+	* Comments Intro
+	* Laid groundwork for WYSIWYG editors in plugin pages, still a bit buggy.
+
+### 1.1 - 2011-07-31
 * Reponsive Design changes for <960 and <600 wide
 * <600 wide is optimised for mobile devices
 * Pseudoelement CSS icons for subsection (dark grey area) and post meta icons

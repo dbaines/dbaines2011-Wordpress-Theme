@@ -83,8 +83,15 @@
                 These comments support XHTML! You can use these tags:<br /> <code><?php echo allowed_tags(); ?></code>
             </div>
     
-            <div class="comment-gravatar-notice">
-                <small>This website uses Gravatar for your avatar, if you don't have one, <a href="http://en.gravatar.com/">sign up today</a>, it's quick and painless.</small>
+                <div class="comment-gravatar-notice">
+                <?php // Get Footer Text from theme options
+                    include('functions/get.options.php');
+                    if ($db2011_commentswarn) {
+                        echo stripslashes($db2011_commentswarn);
+						echo "<br />";
+                    }
+                ?>
+              	This website uses Gravatar for your avatar, if you don't have one, <a href='http://en.gravatar.com/'>sign up today</a>, it's quick and painless.
             </div>
                 
             <?php if ( get_option('comment_registration') && !is_user_logged_in() ) : ?>
@@ -98,27 +105,27 @@
                 <p>Logged in as <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="Log out of this account">Log out &raquo;</a></p>
                 
                 <div id="respond-wide">
-                    <textarea name="comment" id="comment" rows="10" tabindex="4"></textarea>
+                    <textarea name="comment" id="comment" rows="10" tabindex="4" required></textarea>
                     <input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" /><?php comment_id_fields(); ?>
                 </div>
         
             <?php else : ?>
             
             <div id="respond-left">
-                <label for="author">Name <small><?php if ($req) echo "(required)"; ?></small></label>
-                <input type="text" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
+                <label for="author">Name <small><?php if ($req) echo "<span class='req reqstar'>*</span>"; ?></small></label>
+                <input type="text" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" tabindex="1" placeholder="Your Name" <?php if ($req) echo "aria-required='true' required"; ?> />
     
-                <label for="email">Mail <small>(will not be published) <?php if ($req) echo "(required)"; ?></small></label>
-                <input type="text" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
+                <label for="email">Mail<small> <?php if ($req) echo "<span class='req reqstar'>*</span>"; ?> (will not be published)</small></label>
+                <input type="email" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" tabindex="2" placeholder="Your E-Mail Address" <?php if ($req) echo "aria-required='true' required"; ?> />
                 
                 <label for="url">Website</label>
-                <input type="text" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22" tabindex="3" />
+                <input type="text" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22" tabindex="3" placeholder="Your Website (Optional)" />
                 
                 <!-- <p><small><strong>XHTML:</strong> You can use these tags: <code><?php echo allowed_tags(); ?></code></small></p> -->
             </div>
             <div id="respond-right">
-                <label for="comment">Your Comment <small><?php if ($req) echo "(required)"; ?></small></label>
-                <textarea name="comment" id="comment" rows="10" tabindex="4"></textarea>
+                <label for="comment">Your Comment <small><?php if ($req) echo "<span class='req reqstar'>*</span>"; ?></small></label>
+                <textarea name="comment" id="comment" rows="10" tabindex="4" placeholder="What's on your mind?" required></textarea>
                 <input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" /><?php comment_id_fields(); ?>
             </div>
             <div class="clear"></div>

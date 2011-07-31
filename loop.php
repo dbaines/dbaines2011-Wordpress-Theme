@@ -215,7 +215,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
 			</div><!-- .entry-meta -->
             
             <div class="entry-content">
-            	<div class="tutorial-image">
+            	<figure class="tutorial-image">
                 	<a href="<?php the_permalink(); ?>" title="Read Tutorial: <?php the_title(); ?>">
 	                	<?php if (has_post_thumbnail()) : // If has post thumbnail ?>
                 			<?php the_post_thumbnail(); ?>
@@ -223,7 +223,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
             		    	<img src="<?php bloginfo('template_url'); ?>/images/tutorial-thumbnail.png" alt="tutorial" />
     		            <?php endif; ?>
 	                </a>
-                </div>
+                </figure>
                 <div class="tutorial-post">
                     <?php the_excerpt(); ?>
                     <a href="<?php the_permalink(); ?>" class="readmore">Read Tutorial</a>
@@ -252,7 +252,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
                 <?php // Show +1 Button if turned on
 					include('functions/get.options.php');
 					if($db2011_gplusone) {?>
-                    | <g:plusone size="small" count="false" href="<?php the_permalink(); ?>"></g:plusone>
+                    | <g:plusone size="small" <?php if(!$db2011_gplusone_count) { ?>count="false"<?php } ?> href="<?php the_permalink(); ?>"></g:plusone>
                     <?php }	?>
             </div><!-- .entry-utility -->
             <div class="clear"></div>
@@ -296,7 +296,7 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
                 <?php // Show +1 Button if turned on
 					include('functions/get.options.php');
 					if($db2011_gplusone) {?>
-                    | <g:plusone size="small" count="false" href="<?php the_permalink(); ?>"></g:plusone>
+                    | <g:plusone size="small" <?php if(!$db2011_gplusone_count) { ?>count="false"<?php } ?> href="<?php the_permalink(); ?>"></g:plusone>
                     <?php }	?>
 			</div><!-- .entry-utility -->
             <div class="clear"></div>

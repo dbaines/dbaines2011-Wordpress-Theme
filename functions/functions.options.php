@@ -8,6 +8,7 @@
 * http://net.tutsplus.com/tutorials/wordpress/how-to-create-a-better-wordpress-options-panel/
 * http://codex.wordpress.org/Creating_Options_Pages
 * http://wpshout.com/create-an-advanced-options-page-in-wordpress/
+* http://keighl.com/2010/04/switching-visualhtml-modes-with-tinymce/
 * 
 * Usage of Options:
 * if ($option_id == "true") {doSomething();}
@@ -26,16 +27,53 @@ $shortname = "db2011";
 ***********************************/
 $options = array (
 	
+	// Layout
+	array(
+		"desc" => __("Layout"),
+		"type" => "title"
+	),
+	
 	array( 
 		"name" => "Google +1 Buttons",
 		"desc" => "Tick to enable Google +1 Buttons on this theme",
 		"id" => $shortname."_gplusone",
 		"type" => "checkbox",
 		"std" => ""
+	),
+	array( 
+		"name" => "Google +1 Count",
+		"desc" => "Tick to enable the count bubbles on the +1 buttons",
+		"id" => $shortname."_gplusone_count",
+		"type" => "checkbox",
+		"std" => ""
+	),
+	
+	// Text Customisations
+	array(
+		"desc" => __("Customisations"),
+		"type" => "title"
+	),
+	
+	array(
+		"name" => __('Footer Text'),
+		"desc" => __("The text that appears at the bottom of the page."),
+		"id" => $shortname."_footertext",
+		"std" => __(htmlentities('Copyright &copy; David Baines 2011 &bull; <a href="'. get_bloginfo("url") .'/about">About</a> &bull; <a href="'. get_bloginfo("url") .'/sitemap">Sitemap</a> &bull; <a href="'. get_bloginfo("url") .'/blog/wp-admin/">Login</a>')),
+		"type" => "textarea",
+		"editor" => false
+	),
+	
+	array(
+		"name" => __('Comments Warning (Optional)'),
+		"desc" => __("This text appears above the comment form"),
+		"id" => $shortname."_commentswarn",
+		"std" => stripslashes("Please note: Any comments in a language other than English will be deleted. Similarly any comments using your website name or SEO keywords as your name will also be deleted. If it's your first time commenting your first comment will need to be approved, after which you will be able to comment freely."),
+		"type" => "textarea",
+		"editor" => false
 	)
 		
 );
-	
+
 /***********************************
 *
 * ADDING THE ADMIN MENU
@@ -47,6 +85,12 @@ function theme_options_menu() {
 	add_submenu_page('themes.php', 'dBaines2011 Options', 'dBaines2011 Options', 'manage_options', 'dbaines2011-options-page', 'db2011_options');
 }
 
+
+// To add
+add_action("admin_print_scripts", "js_libs");
+function js_libs() {
+  wp_enqueue_script('tiny_mce');
+}
 
 /***********************************
 *
@@ -87,8 +131,8 @@ function db2011_options() {
     <h2><?php echo $themename; ?> Settings</h2>
     <p>Use these options to customise your <?php echo $themename ?> experience!</p>
 	<form method="post">
+    	<div id="poststuff">
     	<table class="form-table">
-        <tr>
 		<?php 
 			
 		// This is where the magic happens. Bow chicka-wow wow.
@@ -111,15 +155,62 @@ function db2011_options() {
 			case 'textarea':
 			?>
             
-            <div class="rm_input rm_textarea">
-                <label for="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></label>
-                <textarea name="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" cols="" rows=""><?php if ( get_settings( $value['id'] ) != "") { echo stripslashes(get_settings( $value['id']) ); } else { echo $value['std']; } ?></textarea>
-                <small><?php echo $value['desc']; ?></small><div class="clearfix"></div>
-            </div>
+            <tr>
+            <th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></label></th>
+            <td>
+
+				<?php // Get either the saved content, or the default (std) content ?>
+                <?php if ( get_settings( $value['id'] ) != "") { $editorContent = htmlentities(get_settings( $value['id']) ); } else { $editorContent = $value['std']; } ?>
+                
+                <?php if ($value['editor']) { // Check if using RTE ?>
+					<?php 
+					
+					wp_tiny_mce( 
+						false, // true makes the editor "teeny"
+                    	array(
+							"editor_selector" => "large-text",
+							"theme" => "advanced",
+							"plugins" => "inlinepopups,spellchecker,media,paste,wpdialogs,wpeditimage,wpfullscreen,wplink"
+						)
+					);
+					
+					?>
+                    
+                    <p align="right" data-id="<?php echo $value['id'] ?>" class="mceControl">
+                      <a class="button toggleVisual_<?php echo $value['id'] ?>">Visual</a>
+                      <a class="button toggleHTML_<?php echo $value['id'] ?>">HTML</a>
+                    </p>
+                    <script>
+						jQuery('.mceControl').each(function() {
+							
+							var id = jQuery(this).attr('data-id');
+							//alert(id);
+					
+							jQuery('a.toggleVisual_'+id, this).click(function() {
+								tinyMCE.execCommand('mceAddControl', false, id);
+							});
+							
+							jQuery('a.toggleHTML_'+id, this).click(function() {
+								tinyMCE.execCommand('mceRemoveControl', false, id);
+							});
+						});
+					</script>
+					<textarea name="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" class="large-text" cols="" rows="" style="max-width: 600px; width: 100%; height: 120px;"><?php echo stripslashes(htmlspecialchars_decode($editorContent)) ?></textarea>
+                    
+                                    
+                <?php } else { // If not using RTE, just show textarea ?>
+                
+					<textarea name="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" cols="" rows="" style="max-width: 600px; width: 100%; height: 120px;"><?php echo stripslashes($editorContent) ?></textarea>
+                
+                <?php } ?>
+                
+			 </td>
+             </tr>
 			  
 			<?php
 			break;
-			 
+			
+			// Select 
 			case 'select':
 			?>
 			
@@ -140,15 +231,27 @@ function db2011_options() {
 			case "checkbox":
 			?>
             
+            <tr>
             <th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></label></th>
             <td>
                 <?php if(get_option($value['id'])){ $checked = "checked=\"checked\""; }else{ $checked = "";} ?>
                 <input type="checkbox" name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" value="true" <?php echo $checked; ?> />
                 <span class="description"><?php echo $value['desc']; ?></span>
 			 </td>
+             </tr>
 			
 			 
-			<?php break;
+			<?php
+			break;
+
+			// Headings
+			case "title":
+			?>
+            
+            <tr><th colspan="2"><br /><strong class='title'><?php echo $value['desc']; ?></strong></th></tr>
+            
+			<?php
+			break;
 			 
 		}
 		}
@@ -156,6 +259,7 @@ function db2011_options() {
         
         </tr>
         </table>
+        </div>
 
 		<p class="submit">
         <input name="save" type="submit" value="<?php _e('Save changes','thematic'); ?>" id="submit" class="button-primary" />
@@ -166,6 +270,7 @@ function db2011_options() {
     
     <?php
 }
+
 
 
 /***********************************

@@ -16,7 +16,16 @@
 </section>
 <footer>
 	<div class="wrapper">
-    	<span class="floatLeft">Copyright &copy; David Baines 2011 &bull; <a href="<?php bloginfo("url"); ?>/about">About</a> &bull; <a href="<?php bloginfo("url"); ?>/sitemap">Sitemap</a> &bull; <a href="<?php bloginfo("url"); ?>/blog/wp-admin/">Login</a></span>
+    	<span class="floatLeft">
+			<?php // Get Footer Text from theme options
+            	include('functions/get.options.php');
+	            if ($db2011_footertext) {
+					echo stripslashes($db2011_footertext);
+				} else { 
+					echo 'Copyright &copy; David Baines 2011 &bull; <a href="'. get_bloginfo("url") .'/about">About</a> &bull; <a href="'. get_bloginfo("url") .'/sitemap">Sitemap</a> &bull; <a href="'. get_bloginfo("url") .'/blog/wp-admin/">Login</a>';
+				}
+			?>
+        </span>
     </div>
 </footer>
 

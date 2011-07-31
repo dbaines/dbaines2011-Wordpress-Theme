@@ -133,7 +133,7 @@
 					if(is_page('about') or is_page('my computer')) {echo "class='current'";} 
 					?>>about</a>
                     <ul>
-                    	<li><a href="<?php bloginfo('url'); ?>/about#contact">Contact Me</a></a>
+                    	<li><a href="<?php bloginfo('url'); ?>/about#contact">contact me</a></a>
                     </ul>
                 </li>
                 <li><a href="<?php bloginfo('url'); ?>/blog" <?php 
@@ -230,7 +230,7 @@
 						 <?php // Show +1 Button if turned on
                         include('functions/get.options.php');
                         if($db2011_gplusone) {?>
-                        | <g:plusone size="small" count="false" href="<?php the_permalink(); ?>"></g:plusone>
+                        | <g:plusone size="small" <?php if(!$db2011_gplusone_count) { ?>count="false"<?php } ?> href="<?php the_permalink(); ?>"></g:plusone>
                         <?php }	?>
                     </h3>
             <?php 

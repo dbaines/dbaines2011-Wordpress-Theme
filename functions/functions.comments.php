@@ -44,3 +44,27 @@ function twentyten_comment( $comment, $args, $depth ) {
 	<?php endif;
 }
 endif;
+
+/***********************************
+*
+* COMMENTS FORM
+* http://coding.smashingmagazine.com/2011/02/22/using-html5-to-transform-wordpress-twentyten-theme/
+*
+***********************************/
+add_filter('comment_form_default_fields', 'comments_form');
+function comments_form() {
+
+	$req = get_option('require_name_email');
+	
+	$fields =  array(
+		'author' => '<p>' . '<label for="author">' . __( 'Name' ) . '</label> ' . ( $req ? '<span>*</span>' : '' ) .
+		'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' placeholder = "What should we call you?"' . ( $req ? ' required' : '' ) . '/></p>',
+	
+		'email'  => '<p><label for="email">' . __( 'Email' ) . '</label> ' . ( $req ? '<span>*</span>' : '' ) .
+		'<input id="email" name="email" type="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' placeholder="How can we reach you?"' . ( $req ? ' required' : '' ) . ' /></p>',
+	
+		'url'    => '<p><label for="url">' . __( 'Website' ) . '</label>' .
+		'<input id="url" name="url" type="url" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" placeholder="Have you got a website?" /></p>'
+	);
+	return $fields;
+}
