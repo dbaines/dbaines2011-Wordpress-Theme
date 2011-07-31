@@ -108,6 +108,12 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
         
         <article class="websiteContainer">
         
+			 <?php // Show +1 Button if turned on
+            include('functions/get.options.php');
+            if($db2011_gplusone) {?>
+            <div class="webPlusOne"><g:plusone size="small" <?php if(!$db2011_gplusone_count) { ?>count="false"<?php } ?> href="<?php the_permalink(); ?>"></g:plusone></div>
+            <?php }	?>
+        
         	<div class="websiteSliderContainer">
         	<ul class="websiteSlider">
 				<?php 

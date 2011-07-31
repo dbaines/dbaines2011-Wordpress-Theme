@@ -62,7 +62,13 @@ If you are the creator of any of these resources and have issue with me redistri
 * Blue hover for homepage logo
 * Fix mobile search input rendering in firefox
 * Additional Wordpress Options
-	* All posts have post-thumbnail on/off
+	* All posts have post-thumbnail on/off?
+* Add support for Wordpress Menu - on/off as Theme Option?
+	
+### 1.3 - 2011-08-01
+* Fixed search input rendering in Firefox for the mobile display
+* Added +1 buttons to portfolio colourbox popups (dbaines.js)
+* Added +1 buttons to websites loop
 
 ### 1.2 - 2011-07-31
 * Fixed the 1.1 date (2011, not 2001)
