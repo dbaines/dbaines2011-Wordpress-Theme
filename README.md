@@ -1,5 +1,5 @@
 dbaines2011 - dBaines.com Wordpress Theme
-=========================================
+==========================================
 
 This is the theme currently in use at dBaines.com
 
