@@ -295,5 +295,38 @@ $(".homepageFeeds > li").hover(function() {
 	$(".homepageFeedsExtended").hide();
 });
 
+/* ------------------------------------------------------------------------------
+	AJAX LOAD MORE POSTS
+	Adapted from:
+	http://wpcanyon.com/tipsandtricks/the-easy-way-to-make-wordpress-ajax-pagination-using-jquery/
+	http://forum.jquery.com/topic/load-but-append-data-instead-of-replace
+------------------------------------------------------------------------------ */
+$('#loadMore a').live('click', function(e){
+
+	// Stop right there, criminal scum!
+	e.preventDefault();
+
+	// Get the URL to load
+	var linkToGet = $(this).attr('href');
+
+	// Show a loading message
+	$('#loadMore').html('<span class="loadingPosts">Loading...</span>');
+
+	// Loading new content in to a div
+	$("<div>").load(linkToGet+' .posts-container', function(response, status) {
+		if(status == "success") {
+			// Add page-break
+			$(".posts-container").append("<div class='posts-pagebreak'>");
+			
+			// Appending the html from this div in to #blog-content
+			$(".posts-container").append($(this).find(".posts-container").html());
+			
+			// Loading new more link
+			$("#loadMore").load(linkToGet+' #loadMore a');
+		}
+	});
+});
+
+
 /* End of doc.ready */
 }); 

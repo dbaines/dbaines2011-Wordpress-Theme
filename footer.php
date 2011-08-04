@@ -45,9 +45,10 @@
   })();
 </script>
 
-<?php // Google Analytics ?>
+<?php // Google Analytics UA-21857677-1 ?>
+<?php include('functions/get.options.php'); $gaCode = ($db2011_googleua ? $db2011_googleua : "UA-XXXXXXXX-X"); ?>
 <script>
-   var _gaq = [['_setAccount', 'UA-21857677-1'], ['_trackPageview']];
+   var _gaq = [['_setAccount', '<?php echo addslashes($gaCode); ?>'], ['_trackPageview']];
    (function(d, t) {
     var g = d.createElement(t),
         s = d.getElementsByTagName(t)[0];

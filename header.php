@@ -127,6 +127,36 @@
                 <input type="radio" value="tutorials" name="post_type" id="searchOptionsTutorials" /> <label for="searchOptionsTutorials">Search Tutorials Only</label>
             </section>
         </form>
+        
+        <?php 
+			// Check Wordpress Themes for Menu
+			include('functions/get.options.php'); 
+			if ($db2011_wpmenu) {
+				
+			// Call the Wordpress Menu with Tonnes of Options. Every option really. Too many options. 
+			wp_nav_menu(
+			array(
+			  'theme_location'  => '',
+			  'menu'            => 'Main Menu', 
+			  'container'       => 'nav', 
+			  'container_class' => '', 
+			  'container_id'    => '',
+			  'menu_class'      => '', 
+			  'menu_id'         => '',
+			  'echo'            => true,
+			  'fallback_cb'     => 'wp_page_menu',
+			  'before'          => '',
+			  'after'           => '',
+			  'link_before'     => '',
+			  'link_after'      => '',
+			  'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+			  'depth'           => 0,
+			  'walker'          => ''
+			  )
+			);
+        ?>
+        
+        <?php } else { // No Menu, Show Hardcoded Defaults ?>
         <nav>
             <ul>
                 <li><a href="<?php bloginfo('url'); ?>/about" <?php 
@@ -172,6 +202,8 @@
                 </li>
             </ul>
         </nav>
+        <?php } ?>
+        
         <hgroup id="headerTitle">
             <h2>
             <?php

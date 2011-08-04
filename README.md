@@ -16,8 +16,21 @@ This is the theme currently in use at dBaines.com
 * Heavy uses of HTML5 and CSS3
 * Custom homepage theme
 * Randomised 404 page
-* Very basic mobile-device media query
+* Responsive design for less than 960 width and a mobile-friendly(ish) display for less than 600.
 * Custom login page
+* Shortcodes reference panel when writing a post
+* Theme Options page:
+	* Enable Google +1 buttons
+	* Enable the count bubble for the Google +1 buttons
+	* Twitter-like load more posts option
+	* All posts have thumbnails on/off
+	* Use custom Wordpress menu instead of hardcoded menu
+	* Use custom Wordpress blogroll links category instead of hardcoded friends list
+	* Custom Footer text
+	* Custom Comments intro text
+	* Custom Google Analytics code
+	
+It should be noted that this theme does not (and will not) support old browsers. 
 
 ## Recommended Wordpress Plugins:
 
@@ -58,12 +71,30 @@ If you are the creator of any of these resources and have issue with me redistri
 ## Version History
 
 ### Near Future
-* Responsive Design for contact form
 * Blue hover for homepage logo
-* Fix mobile search input rendering in firefox
-* Additional Wordpress Options
-	* All posts have post-thumbnail on/off?
-* Add support for Wordpress Menu - on/off as Theme Option?
+* Implement custom close button for colorbox
+* Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics.
+	
+### 1.4 - 2011-08-04
+* Styled figcaption for codebox
+* Added aprilfools.css for headache inducing fun come April-time
+* Added Wordpress Option: Google Analytics UA Code
+* Added Wordpress Option: Enable Wordpress Menu - Uses a Wordpress menu, "Main Menu" as the main navigation instead of the hardcoded links
+* Added Wordpress Option: Replace 'friends' with 'blogroll' links
+* Added Wordpress Option: All posts have thumbnails - includes shiny new generic post-thumbnail.png
+* Added Wordpress Option: AJAX Post Loading - Facebook/twitter esque post loading technique
+* Removed -webkit-appearance from search input
+* Added Google +1 buttons to search results
+* Added .2 seconds of transitions (of various vendors) to the top-level nav links for fun and profit
+* Gave .homepageSlider h2 1px of text shadow blur to fix the shadow being white in chrome 12/13.
+* Added line-height: 1.5 to p,ul - if it affects too many things I'll specify it to content areas only.
+* Hardware Acceleration (via the "Magic Bullet" -webkit-transform: translateZ(0);) given to homepage slider and websites slider
+* Added a "Shortcodes Reference" box in the new post admin page. Super convenient!
+* Responsive Design changes:
+	* Fixed rendering of the search input in Firefox for the mobile design, again. Should stick this time. 
+	* Made the artwork portfolio look somewhat nicer on the reponsive design
+	* Changes for the contact form when less than 960px wide
+	* Made the "About me" image centred and styled like the centred images in the blog
 	
 ### 1.3 - 2011-08-01
 * Fixed search input rendering in Firefox for the mobile display
@@ -74,7 +105,7 @@ If you are the creator of any of these resources and have issue with me redistri
 * Fixed the 1.1 date (2011, not 2001)
 * Figure HTML5 elements for wp-captions
 * Figure HTML5 elements for tutorial post thumbnails
-* Figure elements for code blocks, adding caption option to codeblock shortcode
+* Figure elements for code blocks, adding caption option to codebox shortcode: [codebox caption=""]
 * HTML5 form fields for comments form
 * Removed some vendor prefixes for some box shadows and rounded corners as the major browsers now use non-vendor-prefixes.
 * Fixed some more inconsistent typography

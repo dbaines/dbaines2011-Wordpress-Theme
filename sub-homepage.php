@@ -11,6 +11,7 @@
         <li><a href="http://twitter.com/dbaines" class="twitter" rel="me">Twitter</a></li>
         <li><a href="http://digg.com/baines" class="digg" rel="me">Digg</a></li>
         <li><a href="http://linkedin.com/profile/view?id=94729829" class="linkedin" rel="me">Linkedin</a></li>
+        <li><a href="https://github.com/dbaines/" class="github" rel="me">GitHub</a></li>
     </ul>
 </div>
 <ul class="homepageFeeds">

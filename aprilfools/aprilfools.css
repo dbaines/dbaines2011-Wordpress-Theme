@@ -1,0 +1,35 @@
+/* ==================
+
+I'm such a tool
+- David Baines,
+  2011-08-01
+
+================== */
+
+.wrapper {
+    -webkit-animation-name:             	rotate; 
+    -webkit-animation-duration:         	20s; 
+    -webkit-animation-iteration-count:  	infinite;
+	}
+	@-webkit-keyframes rotate {
+		0% {
+			-webkit-transform: rotate(0deg);
+			-webkit-animation-timing-function: ease-out;
+		}
+		25% {
+			-webkit-transform: rotate(2deg);
+			-webkit-animation-timing-function: ease-out;
+		}
+		50% {
+			-webkit-transform: rotate(0deg);
+			-webkit-animation-timing-function: ease-out;
+		}
+		75% {
+			-webkit-transform: rotate(-2deg);
+			-webkit-animation-timing-function: ease-out;
+		}
+		100% {
+			-webkit-transform: rotate(0deg);
+			-webkit-animation-timing-function: ease-out;
+		}
+	}

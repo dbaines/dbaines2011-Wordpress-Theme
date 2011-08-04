@@ -40,6 +40,7 @@ $options = array (
 		"type" => "checkbox",
 		"std" => ""
 	),
+	
 	array( 
 		"name" => "Google +1 Count",
 		"desc" => "Tick to enable the count bubbles on the +1 buttons",
@@ -48,10 +49,42 @@ $options = array (
 		"std" => ""
 	),
 	
+	array( 
+		"name" => "AJAX Load More Posts",
+		"desc" => "Tick to enable a twitter/facebook style load more button instead of pagination",
+		"id" => $shortname."_loadmore",
+		"type" => "checkbox",
+		"std" => ""
+	),
+	
+	array( 
+		"name" => __("All My Posts Have Thumbnails"),
+		"desc" => __("Tick to show thumbnails for all posts. Untick to only show thumbnails for posts in the 'tutorial' category."),
+		"id" => $shortname."_allthumb",
+		"type" => "checkbox",
+		"std" => ""
+	),
+	
 	// Text Customisations
 	array(
 		"desc" => __("Customisations"),
 		"type" => "title"
+	),
+	
+	array( 
+		"name" => __("Wordpress Menu"),
+		"desc" => __("Tick to enable built-in Wordpress Menu"),
+		"id" => $shortname."_wpmenu",
+		"type" => "checkbox",
+		"std" => ""
+	),
+	
+	array( 
+		"name" => __("Blogroll for Friends"),
+		"desc" => __("Tick to replace the 'friends' links at the bottom of the page with the links from the Blogroll category of links"),
+		"id" => $shortname."_blogroll",
+		"type" => "checkbox",
+		"std" => ""
 	),
 	
 	array(
@@ -70,6 +103,14 @@ $options = array (
 		"std" => stripslashes("Please note: Any comments in a language other than English will be deleted. Similarly any comments using your website name or SEO keywords as your name will also be deleted. If it's your first time commenting your first comment will need to be approved, after which you will be able to comment freely."),
 		"type" => "textarea",
 		"editor" => false
+	),
+	
+	array(
+		"name" => __('Google Analytics UA Code'),
+		"desc" => __("The UA Code for your Google Analytics. Should look like: UA-XXXXX-X"),
+		"id" => $shortname."_googleua",
+		"std" => stripslashes(""),
+		"type" => "text"
 	)
 		
 );
@@ -143,11 +184,13 @@ function db2011_options() {
 			case 'text':
 			?>
 			
-            <div class="rm_input rm_text">
-            	<label for="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></label>
+            <tr>
+            <th scope="row"><label for="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></label></th>
+            <td>
             	<input name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" value="<?php if ( get_settings( $value['id'] ) != "") { echo stripslashes(get_settings( $value['id'])  ); } else { echo $value['std']; } ?>" />
-            	<small><?php echo $value['desc']; ?></small><div class="clearfix"></div>
-			</div>
+            	<span class="description"><?php echo $value['desc']; ?></span>
+			</td>
+            </tr>
 			<?php
 			break;
 			 
@@ -196,11 +239,13 @@ function db2011_options() {
 						});
 					</script>
 					<textarea name="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" class="large-text" cols="" rows="" style="max-width: 600px; width: 100%; height: 120px;"><?php echo stripslashes(htmlspecialchars_decode($editorContent)) ?></textarea>
+                    <br /><span class="description"><?php echo $value['desc']; ?></span>
                     
                                     
                 <?php } else { // If not using RTE, just show textarea ?>
                 
 					<textarea name="<?php echo $value['id']; ?>" type="<?php echo $value['type']; ?>" cols="" rows="" style="max-width: 600px; width: 100%; height: 120px;"><?php echo stripslashes($editorContent) ?></textarea>
+                    <br /><span class="description"><?php echo $value['desc']; ?></span>
                 
                 <?php } ?>
                 

@@ -160,7 +160,7 @@ function codebox_tag($atts, $content = null) {
 	//$geshied->enable_classes();
 
 	// Code blocks are technically figures
-	$codebox .= "<figure clas=\"codeboxFig\">";
+	$codebox .= "<figure class=\"codeboxFig\">";
 
     if ($line != "none")
     {
@@ -266,16 +266,6 @@ function scrobble_tag($content = null) {
 }
 add_shortcode("scrobble", "scrobble_tag");
 
-/*************************************************
-* Comment Buttons
-* Adds buttons to comments for admin actions
-*************************************************/
-function delete_comment_link($id) {
-  if (current_user_can('edit_post')) {
-	echo '&bull; <a href="'.admin_url("comment.php?action=cdc&c=$id").'">Delete</a> ';
-	echo '&bull; <a href="'.admin_url("comment.php?action=cdc&dt=spam&c=$id").'">Spam</a>';
-  }
-}
 
 /*************************************************
 * Replaces the wordpress caption divs with figure elements
