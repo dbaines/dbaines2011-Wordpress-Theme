@@ -42,7 +42,7 @@
     </title>
     
 	<?php // Modernizr & Flowplayer in Header, everything else in footer ?>
-    <script src="<?php bloginfo('template_url'); ?>/js/modernizr-1.6.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/modernizr.js"></script>
     <script src="<?php bloginfo('template_url'); ?>/js/flowplayer-3.2.6.min.js"></script>
 
 	<?php // Links and Stylesheets and What not - Oh my! ?>    
@@ -111,12 +111,13 @@
 
 <body <?php body_class(); ?>>
 <header>
+	<a href="#body-top" accesskey="s" style="display: none;">Skip to Content</a>
 	<div class="wrapper">
-        <a href="<?php bloginfo('url'); ?>" id="logo" class="ir" title="dBaines.com">dBaines.com</a>
+        <a href="<?php bloginfo('url'); ?>" id="logo" class="ir" title="dBaines.com" accesskey="1">dBaines.com</a>
         <form id="search" name="searchform" method="get" action="<?php bloginfo("url"); ?>" <?php if(is_search()) {echo "class='current'";}?>>
             
             <section id="searchMain">
-				<input type="search" id="s" name="s" title="Search Blog" placeholder="Search dBaines.com" />
+				<input type="search" id="s" name="s" title="Search Blog" placeholder="Search dBaines.com" accesskey="5" />
                 <button type="submit" value="search" id="searchsubmit">Search</button>
                 <a href="#" id="searchAnchor">Search Options</a>
             </section>
@@ -159,14 +160,14 @@
         <?php } else { // No Menu, Show Hardcoded Defaults ?>
         <nav>
             <ul>
-                <li><a href="<?php bloginfo('url'); ?>/about" <?php 
+                <li><a accesske="2" href="<?php bloginfo('url'); ?>/about" <?php 
 					if(is_page('about') or is_page('my computer')) {echo "class='current'";} 
 					?>>about</a>
                     <ul>
-                    	<li><a href="<?php bloginfo('url'); ?>/about#contact">contact me</a></a>
+                    	<li><a href="<?php bloginfo('url'); ?>/about#contact" accesskey="9">contact me</a></a>
                     </ul>
                 </li>
-                <li><a href="<?php bloginfo('url'); ?>/blog" <?php 
+                <li><a accesskey="3" href="<?php bloginfo('url'); ?>/blog" <?php 
 					if(
 						is_page('blog') or 
 						is_category() or 
@@ -183,7 +184,7 @@
                          <li><a href="<?php bloginfo('url'); ?>/blog/category/tutorials">tutorials</a></li>
                     </ul>
                 </li>
-                <li><a href="<?php bloginfo('url'); ?>/portfolio" <?php
+                <li><a accesskey="4" href="<?php bloginfo('url'); ?>/portfolio" <?php
                 	if(
 						is_page('portfolio') or 
 						is_single() && get_post_type(get_the_ID()) == "artwork" or

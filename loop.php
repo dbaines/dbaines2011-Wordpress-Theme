@@ -385,6 +385,8 @@ if ( !is_search() && get_post_type()=='artwork' OR get_post_type()=='motion' OR 
     <?php if($db2011_loadmore) { // Check for AJAX LoadMore?>
     
 	    <div id="loadMore"><?php next_posts_link( __( 'Load More Posts', 'twentyten' ) ); ?></div>
+        <div id="loadMorePagination"><a href="#" class="loadPagination" title="Show pagination links instead of the load more button for superuser page clicking action.">Show Pagination</a></div>
+		<div id="loadMorePaginationLinks"><?php if ( function_exists("wp_pagenavi") ) : wp_pagenavi(); else : echo "pagination plugin not installed"; endif; ?></div>
     
     <?php } else { // If not using AJAX LoadMore, show WP-PageNavi, or default WP Navigation ?>
     

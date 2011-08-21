@@ -1,85 +1,53 @@
 /*
 Theme Name: dBaines 2011
-Theme URI: http://dbaines.com
+Theme URI: http://dbaines.com/blog/archive/dbaines2011-wordpress-theme-now-on-github/
 Description: The 2011 theme for dBaines.com
 Author: David Baines
-Version: 1.3
+Author URI: http://dbaines.com
+Version: 1.5
+
 
 	Far Future
-	- HTML5 Video for Motion Portfolio
 	- Smush.it pass, should be in Near Future really. 
 	- FAQ section on GitHub Readme or Wiki or something
 		- General logic of files (subsections, loops and so on)
 		- Where do I edit the profile links on homepage
 	- Do something about the ugly website/homepage sliders on responsive designs
-	- Add support for "Load more" style pagination (ala Facebook/Twitter)
 
 	Near Future
-	- Blue hover for homepage logo
 	- Re-evaluate the print stylesheet and see if any of the changes since 1.0 require fixing or altering
-	- Implement custom close button for colorbox
-	- Add tutorials to the homepageSlider with theme option to disable
 	- Custom styles for a sticky post
-	- Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics.
+	- Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics. Do I even use many gradients? I think most of them are textures.
+		
+	1.5 - 2011-08-21
+	- Removed changelog from skin.css for older releases. Still available at GitHub and the URL at the top of this file
+	- Updated to Modernizr 2.0.6 Custom
+	- Removed border-top for active menu item when using wordpress menus, since custom post types were showing the blog as being active, rather than the correct parent page. Bug in Wordpress?
+	- Added custom close button for colorbox
+	- Added a blue hover state to the homepage logo link
+	- Implemented Google Code Prettify to replace GeSHi, but changed back due to quirks of Prettify (namely line number incrementing, copy and paste issues and other things GeSHi does better) - I've left the code in /functions/functions.shortcodes.prettify.php
+	- As a result of the above I've moved the GeSHi stuff in to functions/functions.shortcodes.geshi.php
+	- Added "Show Pagination" link to the load more posts button. Hides Load More Posts button and shows wp-pagenavi links. LoadMoreButton also pulls in the wp-pagenavi from each page so if the user loads a few pages and then shows the pagination, it shows the relevant page as being current.
+	- Fixes to the Load More feature:
+		- Functionised™ the part of the dbaines.js file that adds colorbox classes to everything so we can call it after the new page has been loaded
+		- Called gapi.plusone.go after a successful load so the google plus buttons are rendered.
+		- Rejiggered the ajax call for the loadMore link to only do one .load() and then cherrypick the things to go places
+	- Added some accesskeys:
+		- 0: Takes the user to the new accessibility page
+		- 1: Homepage
+		- 2: About
+		- 3: Blog
+		- 4: Portfolio
+		- 5: Search
+		- 6: Sitemap
+		- 9: Contact Page
+		- S: Skip to Content
 		
 	1.4 - 2011-08-04
-	- Styled figcaption for codebox
-	- Added aprilfools.css for headache inducing fun come April-time
-	- Added Wordpress Option: Google Analytics UA Code
-	- Added Wordpress Option: Enable Wordpress Menu - Uses a Wordpress menu, "Main Menu" as the main navigation instead of the hardcoded links
-	- Added Wordpress Option: Replace 'friends' with 'blogroll' links
-	- Added Wordpress Option: All posts have thumbnails - includes shiny new generic post-thumbnail.png
-	- Added Wordpress Option: AJAX Post Loading - Facebook/twitter esque post loading technique
-	- Removed -webkit-appearance from search input
-	- Added Google +1 buttons to search results
-	- Added .2 seconds of transitions (of various vendors) to the top-level nav links for fun and profit
-	- Gave .homepageSlider h2 1px of text shadow blur to fix the shadow being white in chrome 12/13.
-	- Added line-height: 1.5 to p,ul - if it affects too many things I'll specify it to content areas only.
-	- Hardware Acceleration (via the "Magic Bullet" -webkit-transform: translateZ(0);) given to homepage slider and websites slider
-	- Added a "Shortcodes Reference" box in the new post admin page. Super convenient!
-	- Responsive Design changes:
-		- Fixed rendering of the search input in Firefox for the mobile design, again. Should stick this time. 
-		- Made the artwork portfolio look somewhat nicer on the reponsive design
-		- Changes for the contact form when less than 960px wide
-		- Made the "About me" image centred and styled like the centred images in the blog
-		
 	1.3 - 2011-08-01
-	- Fixed search input rendering in Firefox for the mobile display
-	- Added +1 buttons to portfolio colourbox popups (dbaines.js)
-	- Added +1 buttons to websites loop
-	
 	1.2 - 2011-07-31
-	- Fixed the 1.1 date (2011, not 2001)
-	- Figure HTML5 elements for wp-captions
-	- Figure HTML5 elements for tutorial post thumbnails
-	- Figure elements for code blocks, adding caption option to codeblock shortcode
-	- HTML5 form fields for comments form
-	- Removed some vendor prefixes for some box shadows and rounded corners as the major browsers now use non-vendor-prefixes.
-	- Fixed some more inconsistent typography
-	- New Wordpress Theme Options:
-		- Google Plus "count" bubbles on/off
-		- Footer Text
-		- Comments Intro
-		- Laid groundwork for WYSIWYG editors in theme options page, still a bit buggy.
-
 	1.1 - 2011-07-31
-	- Reponsive Design changes for <960 and <600 wide
-	- <600 wide is optimised for mobile devices
-	- Pseudoelement CSS icons for subsection (dark grey area) and post meta icons
-	- Fixed some inconsistent typography
-	- Added GooglePlus and Forrst Icon to homepage
-	- Plugins.js for minified plugins
-	- jQuery from Google CDN, Updated to 1.6.2
-	- Added rel="me" to links to my profiles on things
-	- Re-arranged functions.php, cleaned up, separated large chunks in to manageable files (ie. functions.shortcodes.php)
-	- Removed Facebook Likes
-	- Added Google +1 Buttons
-	- Wordpress Options Page!
-		- Google +1 Buttons on/off
-	- Updated login css to reflect changes in Wordpress 3.2
-
-	1.0
-	- Initial Release
+	1.0 - 2011-03-26
 
 */
 
@@ -235,16 +203,13 @@ label, input[type=button], input[type=submit], button { cursor: pointer; }
 button, input, select, textarea { margin: 0; }
 
 /* colors for form validity */
-input:valid, textarea:valid   {  }
+input:valid, textarea:valid   {}
 input:invalid, textarea:invalid { 
-      border-radius: 1px;
-    -moz-box-shadow: 0px 0px 5px red; 
- -webkit-box-shadow: 0px 0px 5px red; 
-         box-shadow: 0px 0px 5px red;
+	border-radius: 1px;
+	box-shadow: 0px 0px 5px red;
 }
 .no-boxshadow input:invalid, 
 .no-boxshadow textarea:invalid { background-color: #f0dddd; }
-
 
 /* These selection declarations have to be separate.
    No text-shadow: twitter.com/miketaylr/status/12228805301 
@@ -299,10 +264,17 @@ p, ul {padding: 0 0 15px 0; line-height: 1.5;}
 /* -- AJAX LOAD MORE -- */
 /* button defined with the other black buttons, search for #loadMore a */
 /* Ajax loader image - http://www.ajaxload.info/ */
-#loadMore {padding: 10px 0;}
+#loadMore, #loadMorePagination {padding: 10px 0; float: left;}
+#loadMorePagination {padding: 10px;}
+#loadMorePaginationLinks {float: left; display: none;}
+
 #loadMore .loadingPosts {background: #3a3a3a url("images/loading-posts.gif") 5px 50% no-repeat; padding-left: 25px;}
-#loadMore a, .loadingPosts {float: none; display: block;}
+
+/* full-width-button */
+/* #loadMore a, .loadingPosts {float: none; display: block;} */
+
 .posts-pagebreak {height: 11px; margin: 25px 0 -20px; background: url("images/loadmore-pagebreak.png") top left no-repeat;}
+.posts-pagebreak span {background: url("images/body-bg.gif") repeat; font-size: 80%; float: left; padding-right: 11px;}
 	
 /* -- POST IMAGES -- */
 .image-left, .imageshack-left {float: left; margin: 0 10px 10px 0;}
@@ -406,16 +378,36 @@ span.info {border: 1px solid #4496c5; background: #bfe4f9 url("icons/info_48.png
 span.error {border: 1px solid #d35050; background: #f1bcbc url("icons/block_48.png") 15px 50% no-repeat; color: #d35050;}
 
 /* -- CODEBOX -- */
-.codebox {background: #eee; border: 1px solid #ccc; color: #222; margin: 10px 0; line-height: 1; padding: 15px; overflow-x: auto;
+/* Light Grey ---- */
+.codebox {background: #eee; border: 1px solid #ccc; color: #222; margin: 10px 0; line-height: 1; overflow-x: auto;
 	-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
 	}
-	.codebox pre {white-space: pre; word-wrap: normal;}
+	.codebox pre {white-space: pre; word-wrap: normal; padding: 15px;}
+
 table.codebox .code {width: 100%;}
 table.codebox .line_numbers {border-right: 1px solid #ccc; background: #e5e5e5;}
 
+.codeboxLined {background: #e5e5e5; padding: 0;}
+.codeboxLined li {background: #eee; padding: 3px; border-left: 1px solid #ccc; margin-left: 20px;}
+
+.codeboxFig {padding-bottom: 15px;}
 .codeboxFig .codebox {margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
 .codeboxFig figcaption {margin-bottom: 10px; padding: 5px 10px; background: #ddd; border: 1px solid #ccc; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
-		
+
+/* Dark 
+.codebox {background: #222; color: #ccc; margin: 10px 0; line-height: 1; padding: 15px; overflow-x: auto; text-shadow: 1px 1px 0 #000;;
+	-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px;
+	}
+	.codebox pre {white-space: pre; word-wrap: normal; padding: 0;}
+
+.codeboxLined {background: #111; padding: 0;}
+.codeboxLined li {background: #222; padding: 3px 6px; margin-left: 20px;}
+
+.codeboxFig .codebox {margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
+.codeboxFig figcaption {margin-bottom: 10px; padding: 5px 10px; background: #ddd; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
+*/
+
+	
 /* -- INLINES -- */
 code.inline-code {color: #000; background: #d7d7d7; background: rgba(215,215,215,0.5);}
 span.hilight {background: yellow;}
@@ -450,6 +442,7 @@ header a:link {color: #77ccfd;}
 header a:hover {color: #77ccfd;}
 
 #logo {float: left; width: 65px; height: 50px; background: url("images/logo.png") top no-repeat; margin-top: 7px;}
+#logo:hover {background-position: bottom;}
 #search {float: right; margin-left: 10px; border: 1px solid transparent; border-top: 0; position: absolute; top: 0; right: 0; z-index: 1030;}
 	#searchMain {padding: 17px 5px 17px 20px; min-height: 24px;}
 	#searchOptions {display: none; border-top: 1px solid #7899ad; padding: 10px; clear: both;}
@@ -486,8 +479,8 @@ header nav > ul > li > a {display: block; float: left; line-height: 27px; paddin
 	 transition: .2s;
 	 }
 header nav > ul > li > a.current,
-header nav > ul > li.current_page_item > a,
-header nav > ul > li.current_page_parent > a {border-top: 5px solid #468fb9;}
+/* header nav > ul > li.current_page_item > a,
+header nav > ul > li.current_page_parent > a */ {border-top: 5px solid #468fb9;}
 
 header nav > ul > li > a:hover,
 header nav > ul > li:hover > a {border-top: 5px solid #77ccfd; -webkit-transition: 0s;}
@@ -980,8 +973,8 @@ h3 {font-size: 24px; font-weight: normal;}
         #cboxNext.hover{background-position:bottom right;}
 		*/
         #cboxLoadingOverlay{background:#000;}
-        #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
-        #cboxClose{position:absolute; top:-19px; right:0px; display:block; background:url(images/controls.png) no-repeat top center; width:38px; height:19px; text-indent:-9999px;}
+        #cboxLoadingGraphic{background:url('images/loading.gif') no-repeat center center;}
+        #cboxClose{position:absolute; top:-19px; right:0px; display:block; background:url('images/cbox_close.gif') no-repeat top center; width:61px; height:19px; text-indent:-9999px;}
         #cboxClose.hover{background-position:bottom center;}
 		
 /* ------------------------------------------------------------------------------
@@ -989,82 +982,68 @@ h3 {font-size: 24px; font-weight: normal;}
 ------------------------------------------------------------------------------ */
 
 	/* Homepage */
-	.homepageSliderWrapper ul, .homepageSlider li {
-		margin:0;
-		padding:0;
-		list-style:none;
-		width:960px;
-		height:380px;
-		}
-		.homepageSlider li {overflow-y:hidden; }
+	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:960px; height:380px;}
+		.homepageSlider li {overflow-y:hidden;}
 		
 	/* Websites */
-	.websiteSliderContainer ul, .websiteSliderContainer li {
-		margin:0;
-		padding:0;
-		list-style:none;
-		width:630px;
-		height:380px;
-		}
-	.websiteSliderContainer li { 
-		overflow:hidden; 
-		}
+	.websiteSliderContainer ul, .websiteSliderContainer li {margin:0;padding:0;	list-style:none;width:630px;height:380px;}
+	.websiteSliderContainer li {overflow:hidden; }
 		
 		
 	#prevBtn, #nextBtn { 
-		display:block;
-		width:30px;
-		height:77px;
-		position:absolute;
-		left:-30px;
-		top:71px;
-		z-index:1000;
-		}	
-	#nextBtn, #slider1next{ 
-		left:696px;
-		}														
-	#prevBtn a, #nextBtn a {  
-		display:block;
-		position:relative;
-		width:30px;
-		height:77px;
-		background:url(images/btn_prev.gif) no-repeat 0 0;	
-		}	
-	#nextBtn a { 
-		background:url(images/btn_next.gif) no-repeat 0 0;	
-		}	
+		display:block;width:30px;height:77px;position:absolute;	left:-30px;	top:71px;z-index:1000;}	
+	#nextBtn, #slider1next{ left:696px;	}														
+	#prevBtn a, #nextBtn a {  display:block;position:relative;width:30px;height:77px;background:url(images/btn_prev.gif) no-repeat 0 0;	}	
+	#nextBtn a { background:url(images/btn_next.gif) no-repeat 0 0;	}	
 		
 	/* numeric controls */	
-	ol#controls{
-		margin:1em 0;
-		padding:0;
-		height:28px;	
-		}
-	ol#controls li{
-		margin:0 10px 0 0; 
-		padding:0;
-		float:left;
-		list-style:none;
-		height:28px;
-		line-height:28px;
-		}
-	ol#controls li a{
-		float:left;
-		height:28px;
-		line-height:28px;
-		border:1px solid #ccc;
-		background:#DAF3F8;
-		color:#555;
-		padding:0 10px;
-		text-decoration:none;
-		}
-	ol#controls li.current a{
-		background:#5DC9E1;
-		color:#fff;
-		}
+	ol#controls{margin:1em 0;padding:0; height:28px;}
+	ol#controls li{	margin:0 10px 0 0; 	padding:0;float:left;list-style:none;height:28px;line-height:28px;}
+	ol#controls li a{float:left;height:28px;line-height:28px;border:1px solid #ccc;	background:#DAF3F8;	color:#555;	padding:0 10px;	text-decoration:none;}
+	ol#controls li.current a{background:#5DC9E1;color:#fff;	}
 	ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus{outline:none;}
 	
 /* // Easy Slider */
+
+/* ------------------------------------------------------------------------------
+	Google Code Prettify
+------------------------------------------------------------------------------ */
+/* Default */
+.pln{color:#000}@media screen{.str{color:#008}.kwd{color:#080}.com{color:#666}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+
+@media none {
+/* Pretty printing styles. Used with prettify.js. */
+/* Vim sunburst theme by David Leibovic */
+
+pre .str, code .str { color: #65B042; } /* string  - green */
+pre .kwd, code .kwd { color: #E28964; } /* keyword - dark pink */
+pre .com, code .com { color: #AEAEAE; font-style: italic; } /* comment - gray */
+pre .typ, code .typ { color: #89bdff; } /* type - light blue */
+pre .lit, code .lit { color: #3387CC; } /* literal - blue */
+pre .pun, code .pun { color: #fff; } /* punctuation - white */
+pre .pln, code .pln { color: #fff; } /* plaintext - white */
+pre .tag, code .tag { color: #89bdff; } /* html/xml tag    - light blue */
+pre .atn, code .atn { color: #bdb76b; } /* html/xml attribute name  - khaki */
+pre .atv, code .atv { color: #65B042; } /* html/xml attribute value - green */
+pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE; } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+	@media print {
+	  pre .str, code .str { color: #060; }
+	  pre .kwd, code .kwd { color: #006; font-weight: bold; }
+	  pre .com, code .com { color: #600; font-style: italic; }
+	  pre .typ, code .typ { color: #404; font-weight: bold; }
+	  pre .lit, code .lit { color: #044; }
+	  pre .pun, code .pun { color: #440; }
+	  pre .pln, code .pln { color: #000; }
+	  pre .tag, code .tag { color: #006; font-weight: bold; }
+	  pre .atn, code .atn { color: #404; }
+	  pre .atv, code .atv { color: #060; }
+	}
+
+}
 
 /* ------------------------------------------------------------------------------
 	404
@@ -1162,6 +1141,8 @@ html.error4042 a:hover {color: #fff;}
 	.wrapper {max-width: 100%; width: auto; padding: 0 20px;}
 	header noscript {padding: 0 20px;}
 	
+	header nav {margin-right: 274px;}
+	
 	/* Tutorials */
 	.tutorial-image {width: 25%; margin: 0;}
 	.tutorial-post {width: 70%;}
@@ -1192,6 +1173,31 @@ html.error4042 a:hover {color: #fff;}
 	.reqtxt, .emailreqtxt {padding-left: 0; padding-bottom: 15px;}
 	.cf-sb input {margin-left: 0;}
 	
+	/* Homepage Slider 
+	.homepageSliderWrapper {width: 100% !important; height: auto; position: static;}
+	.homepageSlider .sliderDetails  {width: 100%;}
+	.homepageSlider img {max-width: 100%; width: auto !important; height: auto !important;}
+	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:100%; height:auto;}
+		.homepageSlider li {overflow-y:hidden;}
+		.homepageSlider li:first-child {display: block; left: 0; top: 0;}
+		
+	.home #largeNext, .home #largePrev {display: none;}
+	*/
+	
+	/*
+	.homepageSliderWrapper {width: 100% !important; height: auto;}
+	.homepageSlider .sliderDetails  {width: 100%;}
+	.homepageSlider img {max-width: 100%; width: auto !important; height: auto !important;}
+	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:100%; height:auto;}
+	*/
+	.homepageSlider {height: auto !important;}
+	.homepageSliderWrapper, .homepageSlider img, .sliderDetails {width: auto !important; max-width: 100%;}
+		
+	/* Websites Slider */
+	.websiteSliderContainer, .websiteSliderContainer:hover {background: transparent; box-shadow: none; margin-bottom: 30px; padding: 0; border: none;}
+	.websiteSliderContainer ul, .websiteSliderContainer, .websiteSliderContainer img, .websiteSliderContainer a {max-width: 100%; width: auto !important;height:auto !important; position: static;}
+	.websiteSliderContainer li {float: left; width: 50%; height: auto; margin: 10px;}
+	
 }
 
 /* ------------------------------------------------------------------------------
@@ -1205,7 +1211,7 @@ html.error4042 a:hover {color: #fff;}
 	/* Design */
 	.wrapper {max-width: 100%; width: auto; padding: 0;}
 	#body .wrapper, #subsection .wrapper, footer .wrapper {padding: 10px;}
-	header #logo {display: block; float: left; width: 20%; margin-top: 10px; background-position: center;}
+	header #logo {display: block; float: left; width: 20%; margin-top: 10px; background-position: top;}
 	header #search {position: static; float: right; width: auto;}
 		#search input#s {margin-bottom: 5px;}
 		#search button {margin-bottom: 10px;}

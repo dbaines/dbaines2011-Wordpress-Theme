@@ -7,6 +7,8 @@ dbaines.com
 
 $(function() {
 
+prettyPrint();
+
 /* ------------------------------------------------------------------------------
 	SEARCH OPTIONS
 ------------------------------------------------------------------------------ */
@@ -20,9 +22,6 @@ $("#searchAnchor").click(function() {
 ------------------------------------------------------------------------------ */
 
 /* ----- Galleries ----- */
-// Vignette Effect
-//$("a.galleryThumbnail").append('<div class="vignette"></div>');
-
 // Fixing Titles for the Gallery on Colorbox pop ups
 $("a.galleryThumbnail").children("img").each(function() {
 	var newTitle = $(this).parent(".galleryImage").attr("title");
@@ -197,41 +196,46 @@ $(".websiteSlider a").colorbox({
 	BLOG SCRIPTS
 ------------------------------------------------------------------------------ */
 // Colorboxing Blog
-$(".wp-caption a").addClass("wp-cbox");
-$(".gallery-item a").addClass("wp-cbox");
-$(".post").each(function() {
-	var thisPost = $(this).attr("id");
-	$(this).find(".wp-cbox").each(function() {
-		// Grouping
-		var thisTitle = $(this).children("img").attr("alt"); 
-		$(this).attr({
-			"title": thisTitle,
-			"rel": thisPost
+function colorboxTargets() {
+	$(".wp-caption a").addClass("wp-cbox");
+	$(".gallery-item a").addClass("wp-cbox");
+	$(".post").each(function() {
+		var thisPost = $(this).attr("id");
+		$(this).find(".wp-cbox").each(function() {
+			// Grouping
+			var thisTitle = $(this).children("img").attr("alt"); 
+			$(this).attr({
+				"title": thisTitle,
+				"rel": thisPost
+			});
 		});
 	});
-});
 
-// History Relling
-$(".historyLeft a").attr({
-	"rel": "history"
-});
+	// History Relling™
+	$(".historyLeft a").attr({
+		"rel": "history"
+	});
 
-$(".wp-cbox").colorbox({
-	opacity: 0.92,
-	scalePhotos: true,
-	maxHeight: "90%",
-	maxWidth: "90%",
-	title: function() {
-		var title = $(this).attr("title");
-		return '<span id="cboxTitleLeft">'+title+'</span>';
-	}
-});
-// Fixing Titles for blog colorboxes
-$(".wp-cbox[title='']").children("img").each(function() {
-	var newTitle = $(this).attr("title");
-	$(this).parent("a").attr("title",newTitle);
-});
+	// Colorboxing with Wordpress
+	$(".wp-cbox").colorbox({
+		opacity: 0.92,
+		scalePhotos: true,
+		maxHeight: "90%",
+		maxWidth: "90%",
+		title: function() {
+			var title = $(this).attr("title");
+			return '<span id="cboxTitleLeft">'+title+'</span>';
+		}
+	});
+	
+	// Fixing Titles for blog colorboxes
+	$(".wp-cbox[title='']").children("img").each(function() {
+		var newTitle = $(this).attr("title");
+		$(this).parent("a").attr("title",newTitle);
+	});
 
+}
+colorboxTargets();
 
 /* ------------------------------------------------------------------------------
 	EASY SLIDERS
@@ -250,6 +254,14 @@ $(".websiteSliderContainer").easySlider({
 	nextId: "smallNext",
 	speed: 200
 });
+
+/* Responsive Sliders would be nice
+if (!Modernizr.mq('only all and (max-width: 960px)')) {
+	
+} else {
+	$(".homepageSliderWrapper").dbSlider();
+}
+*/
 
 /* ------------------------------------------------------------------------------
 	LARGE ARROWS
@@ -311,22 +323,58 @@ $('#loadMore a').live('click', function(e){
 
 	// Show a loading message
 	$('#loadMore').html('<span class="loadingPosts">Loading...</span>');
+	
+	// Hide the pagination link
+	$("#loadMorePagination").hide();
+	$("#loadMorePaginationLinks").hide();
 
 	// Loading new content in to a div
-	$("<div>").load(linkToGet+' .posts-container', function(response, status) {
+	$("<div>").load(linkToGet+' #blog-content', function(response, status) {
+		if(response.readyState = 4) {
 		if(status == "success") {
+			
 			// Add page-break
 			$(".posts-container").append("<div class='posts-pagebreak'>");
+
+			// Getting page number from AJAX call and putting it in the page break
+			var currentPage = $(".wp-pagenavi .pages", this).html();
+			$(".posts-pagebreak").html("<span class='pages'>"+currentPage+"</div>");
 			
 			// Appending the html from this div in to #blog-content
 			$(".posts-container").append($(this).find(".posts-container").html());
 			
 			// Loading new more link
-			$("#loadMore").load(linkToGet+' #loadMore a');
+			var loadMoreLink = $("#loadMore", this).html();
+			$("#loadMore").html(loadMoreLink);
+			
+			// Loading new pagination links
+			var loadMorePages = $("#loadMorePaginationLinks .wp-pagenavi", this);
+			$("#loadMorePaginationLinks").html(loadMorePages);
+			
+			// Refresh Google +1 Buttons
+			if (gplus == true) {
+				gapi.plusone.go();
+			}
+			
+			// Adding colorbox tags
+			colorboxTargets();
+			
+			// Show pagination link
+			$("#loadMorePagination").show();
+		}
 		}
 	});
 });
 
+// Do you want pagination instead? Well TOUGH LUCK BUDDY! What do you think this is? The Rit-- Oh. Yes, here it is.
+$(".loadPagination").live("click",function(e) {
+	// You know the drillbit. It goes on the drill. 
+	e.preventDefault();
+	// Hiding the pagination links because that would just be silly to keep them around. 
+	$("#loadMorePagination").hide();
+	// Fading in, because frankly I don't think this website has filled the fadeIn quota that every web2.0 website has. These IDs are getting worse.
+	$("#loadMorePaginationLinks").fadeIn();
+});
 
 /* End of doc.ready */
 }); 

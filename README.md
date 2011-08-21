@@ -71,9 +71,31 @@ If you are the creator of any of these resources and have issue with me redistri
 ## Version History
 
 ### Near Future
-* Blue hover for homepage logo
-* Implement custom close button for colorbox
 * Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics.
+
+### 1.5 - 2011-08-21
+* Removed changelog from skin.css for older releases. Still available at GitHub and the URL at the top of this file
+* Updated to Modernizr 2.0.6 Custom
+* Removed border-top for active menu item when using wordpress menus, since custom post types were showing the blog as being active, rather than the correct parent page. Bug in Wordpress?
+* Added custom close button for colorbox
+* Added a blue hover state to the homepage logo link
+* Implemented Google Code Prettify to replace GeSHi, but changed back due to quirks of Prettify (namely line number incrementing, copy and paste issues and other things GeSHi does better) - I've left the code in /functions/functions.shortcodes.prettify.php
+* As a result of the above I've moved the GeSHi stuff in to functions/functions.shortcodes.geshi.php
+* Added "Show Pagination" link to the load more posts button. Hides Load More Posts button and shows wp-pagenavi links. LoadMoreButton also pulls in the wp-pagenavi from each page so if the user loads a few pages and then shows the pagination, it shows the relevant page as being current.
+* Fixes to the Load More feature:
+	* Functionised™ the part of the dbaines.js file that adds colorbox classes to everything so we can call it after the new page has been loaded
+	* Called gapi.plusone.go after a successful load so the google plus buttons are rendered.
+	* Rejiggered the ajax call for the loadMore link to only do one .load() and then cherrypick the things to go places
+* Added some accesskeys:
+	* 0: Takes the user to the new accessibility page
+	* 1: Homepage
+	* 2: About
+	* 3: Blog
+	* 4: Portfolio
+	* 5: Search
+	* 6: Sitemap
+	* 9: Contact Page
+	* S: Skip to Content
 	
 ### 1.4 - 2011-08-04
 * Styled figcaption for codebox

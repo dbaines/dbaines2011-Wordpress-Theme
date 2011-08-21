@@ -29,6 +29,20 @@
     </div>
 </footer>
 
+<?php 
+// Multimedia Replacement mod by dBaines.com - Replaces image.flv with image.jpg
+// Get last three characters from filename
+$se = substr($s,-3);
+// Check if FLV or MP3
+if ($se == "flv" or $se == "mp3") {
+// Remove last 3 characters from image filename, "flv"
+$s = substr($s, 0, -3);
+// Add "jpg" to filename
+$s.="jpg";
+}
+// End Multimedia Replacement mod by dBaines.com
+?>
+
 <script type="text/javascript">
 	// Passing some php variables through to JS so we can do stuff with things
 	var templateDir = "<?php bloginfo("template_url"); ?>";
