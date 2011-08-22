@@ -42,6 +42,7 @@ get_header(); ?>
 	 get_template_part( 'loop', 'archive' );
 ?>
 
+			<div class="clear"></div>
 			</div><!-- #content -->
 		</section><!-- #container -->
 

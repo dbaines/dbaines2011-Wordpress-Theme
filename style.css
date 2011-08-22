@@ -4,7 +4,7 @@ Theme URI: http://dbaines.com/blog/archive/dbaines2011-wordpress-theme-now-on-gi
 Description: The 2011 theme for dBaines.com
 Author: David Baines
 Author URI: http://dbaines.com
-Version: 1.5
+Version: 1.6
 
 
 	Far Future
@@ -18,31 +18,22 @@ Version: 1.5
 	- Re-evaluate the print stylesheet and see if any of the changes since 1.0 require fixing or altering
 	- Custom styles for a sticky post
 	- Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics. Do I even use many gradients? I think most of them are textures.
+	- Replace HTML5 Boilerplate Reset with CSS normalisation
+	- QR code for mobile CV
+	- remove unneccessary vendor prefixes
+	- Multiple icon sizes
+		
+	1.6 - 2011-08-22
+	- Fixed the excessive PRE tags in Geshi causing massive padding everywhere. (This was actually part of the last update, I just forgot to document it)
+	- Minified the customised EasySlider script in plugins.js
+	- Fixed accesskey 2 for about link
+	- Updated [download] shortcode to open in new window, removed "Download" part of title text so you can use it as a pretty link button instead.
+	- Added "or" between load more button and show pagination
+	- Added some logic to show a disabled load more button if there are no more posts to load
+	- Added an error message if the loadMore button fails to load the next page
+	- Adapted post-icons to allow for multiple icons using some jQuery (dbaines.js)
 		
 	1.5 - 2011-08-21
-	- Removed changelog from skin.css for older releases. Still available at GitHub and the URL at the top of this file
-	- Updated to Modernizr 2.0.6 Custom
-	- Removed border-top for active menu item when using wordpress menus, since custom post types were showing the blog as being active, rather than the correct parent page. Bug in Wordpress?
-	- Added custom close button for colorbox
-	- Added a blue hover state to the homepage logo link
-	- Implemented Google Code Prettify to replace GeSHi, but changed back due to quirks of Prettify (namely line number incrementing, copy and paste issues and other things GeSHi does better) - I've left the code in /functions/functions.shortcodes.prettify.php
-	- As a result of the above I've moved the GeSHi stuff in to functions/functions.shortcodes.geshi.php
-	- Added "Show Pagination" link to the load more posts button. Hides Load More Posts button and shows wp-pagenavi links. LoadMoreButton also pulls in the wp-pagenavi from each page so if the user loads a few pages and then shows the pagination, it shows the relevant page as being current.
-	- Fixes to the Load More feature:
-		- Functionised™ the part of the dbaines.js file that adds colorbox classes to everything so we can call it after the new page has been loaded
-		- Called gapi.plusone.go after a successful load so the google plus buttons are rendered.
-		- Rejiggered the ajax call for the loadMore link to only do one .load() and then cherrypick the things to go places
-	- Added some accesskeys:
-		- 0: Takes the user to the new accessibility page
-		- 1: Homepage
-		- 2: About
-		- 3: Blog
-		- 4: Portfolio
-		- 5: Search
-		- 6: Sitemap
-		- 9: Contact Page
-		- S: Skip to Content
-		
 	1.4 - 2011-08-04
 	1.3 - 2011-08-01
 	1.2 - 2011-07-31
@@ -269,6 +260,8 @@ p, ul {padding: 0 0 15px 0; line-height: 1.5;}
 #loadMorePaginationLinks {float: left; display: none;}
 
 #loadMore .loadingPosts {background: #3a3a3a url("images/loading-posts.gif") 5px 50% no-repeat; padding-left: 25px;}
+
+.loadError {font-weight: bold; display: block; padding: 15px 0;}
 
 /* full-width-button */
 /* #loadMore a, .loadingPosts {float: none; display: block;} */
@@ -775,39 +768,44 @@ footer a:hover {color: #818181;}
 #nav-above {border-bottom: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1); padding-bottom: 20px; margin-bottom: 30px;}
 
 /* Category Icons */
-.category-link a {display: block; float: left; width: 24px; height: 24px; text-indent: -9999px; background: url("images/category-icons.png") top left no-repeat; margin: 5px 0 0 -30px;}
-.category-android .category-link a {background-position: 0 -387px;}
-.category-comics .category-link a {background-position: 0 -1px;}
-.category-blog .category-link a,
-.category-dbaines-com .category-link a,
-.category-uncategorized .category-link a {background-position: 0 -24px;}
-.category-design .category-link a {background-position: 0 -47px;}
-.category-downloads .category-link a {background-position: 0 -72px;}
-.category-archives .category-link a {background-position: 0 -96px;}
-.category-gallery .category-link a {background-position: 0 -119px;}
-.category-games .category-link a {background-position: 0 -146px;}
-.category-life .category-link a {background-position: 0 -168px;}
-.category-music .category-link a {background-position: 0 -193px;}
-.category-rants .category-link a {background-position: 0 -218px;}
-.category-tech .category-link a,
-.category-technology .category-link a {background-position: 0 -241px;}
-.category-tutorials .category-link a {background-position: 0 -266px;}
-.category-tv .category-link a,
-.category-movies .category-link a {background-position: 0 -288px;}
-.category-windows .category-link a {background-position: 0 -311px;}
-.category-wordpress .category-link a {background-position: 0 -336px;}
-.category-websites .category-link a {background-position: 0 -361px;}
+.category-link {float: left; margin: 5px 0 0 -30px; width: 24px;}
+.category-link a {display: none; float: left; width: 24px; height: 24px; text-indent: -9999px; background: url("images/category-icons.png") top left no-repeat;;}
+
+.category-link a.category-android {background-position: 0 -387px;}
+.category-link a.category-comics {background-position: 0 -1px;}
+.category-link a.category-blog,
+.category-link a.category-dbaines-com,
+.category-link a.category-uncategorized {background-position: 0 -24px;}
+.category-link a.category-design {background-position: 0 -47px;}
+.category-link a.category-downloads {background-position: 0 -72px;}
+.category-link a.category-archives {background-position: 0 -96px;}
+.category-link a.category-gallery {background-position: 0 -119px;}
+.category-link a.category-games {background-position: 0 -146px;}
+.category-link a.category-life {background-position: 0 -168px;}
+.category-link a.category-music {background-position: 0 -193px;}
+.category-link a.category-rants {background-position: 0 -218px;}
+.category-link a.category-tech,
+.category-link a.category-technology {background-position: 0 -241px;}
+.category-link a.category-tutorials {background-position: 0 -266px;}
+.category-link a.category-tv,
+.category-link a.category-movies {background-position: 0 -288px;}
+.category-link a.category-windows {background-position: 0 -311px;}
+.category-link a.category-wordpress {background-position: 0 -336px;}
+.category-link a.category-websites {background-position: 0 -361px;}
 
 /* Index */
 .entry-title {font-family: TitilliumText22LXBold, Arial, Helvetica, sans-serif; font-size: 24px; font-weight: normal; padding: 0;}
 .entry-meta {color: #7c7c7c;}
 .entry-summary, .entry-content {padding: 20px 0; line-height: 1.5;}
+.entry-utility {clear: both;}
 a.more-link, a.readmore, a.read_more, p.websiteLink a, .cancel-comment-reply a, #loadMore a, .loadingPosts {background: #3a3a3a; color: #fff; padding: 5px 10px; text-shadow: none;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	}
 	a.more-link:hover, a.readmore:hover, a.read_more:hover, p.websiteLink a:hover, .cancel-comment-reply a:hover, #loadMore a:hover {background: #607890;}
+
+#loadMore a.disabledBtn {background-color: #ccc; cursor: not-allowed;}
 
 /* Single */
 .entry-meta-large {clear: both; padding: 20px 0 0 0; border-top: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1); margin: 0; list-style: none;}
@@ -1135,7 +1133,7 @@ html.error4042 a:hover {color: #fff;}
 .no-js .homepageSlider {overflow-y: hidden;}
 
 /* ------------------------------------------------------------------------------
-	MOBILE SITE
+	RESPONSIVE SITE
 ------------------------------------------------------------------------------ */
 @media (max-width: 960px) {
 	.wrapper {max-width: 100%; width: auto; padding: 0 20px;}
@@ -1148,7 +1146,7 @@ html.error4042 a:hover {color: #fff;}
 	.tutorial-post {width: 70%;}
 	
 	/* Blog List */
-	.category-link a {margin-left: 0; display: none;}
+	.category-link {display: none;}
 	
 	/* Images */
 	.wp-caption, .wp-caption img, img.size-full, .gallery dl.gallery-item dt.gallery-icon a img, .galleryImage img, .tutorial-image a img,

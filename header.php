@@ -160,7 +160,7 @@
         <?php } else { // No Menu, Show Hardcoded Defaults ?>
         <nav>
             <ul>
-                <li><a accesske="2" href="<?php bloginfo('url'); ?>/about" <?php 
+                <li><a accesskey="2" href="<?php bloginfo('url'); ?>/about" <?php 
 					if(is_page('about') or is_page('my computer')) {echo "class='current'";} 
 					?>>about</a>
                     <ul>

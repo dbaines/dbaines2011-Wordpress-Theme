@@ -40,7 +40,7 @@ function downloadBtn($atts) {
 		$tracking = ' onClick="javascript: _gaq.push([\'_trackPageview\', \''.$trackingCode.'\']);"';
 	}
 	
-	$downloadbtn = '<a href="'.$file.'" class="downloadbtn downloadbtn_'.$style.'" title="Download '.$label.'"'.$tracking.'><span class="downloadbtn_icon"></span>'.$label.'</a>';
+	$downloadbtn = '<a href="'.$file.'" class="downloadbtn downloadbtn_'.$style.'" title="'.$label.'"'.$tracking.' target="_blank"><span class="downloadbtn_icon"></span>'.$label.'</a>';
 	
 	return $downloadbtn;
 }  

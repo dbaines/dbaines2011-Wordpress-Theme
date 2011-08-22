@@ -20,6 +20,7 @@ get_header(); ?>
 				get_template_part( 'loop', 'category' );
 				?>
 
+			<div class="clear"></div>
 			</div><!-- #content -->
 		</div><!-- #container -->
         

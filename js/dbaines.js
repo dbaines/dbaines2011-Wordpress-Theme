@@ -7,8 +7,6 @@ dbaines.com
 
 $(function() {
 
-prettyPrint();
-
 /* ------------------------------------------------------------------------------
 	SEARCH OPTIONS
 ------------------------------------------------------------------------------ */
@@ -233,6 +231,20 @@ function colorboxTargets() {
 		var newTitle = $(this).attr("title");
 		$(this).parent("a").attr("title",newTitle);
 	});
+	
+	// Post Icons
+	$(".category-link a").each(function() {
+		
+		// Get the Category Name, convert to lower case
+		// I have a category with a "." in it, so lets convert that to something css friendly with a replace function
+		var catName = $(this).text().toLowerCase().replace('.', '-');
+		
+		// Add Class to A
+		$(this).addClass("category-"+catName);
+
+		// Only show once the class has been applied
+		$(this).show();
+	});
 
 }
 colorboxTargets();
@@ -317,19 +329,34 @@ $('#loadMore a').live('click', function(e){
 
 	// Stop right there, criminal scum!
 	e.preventDefault();
+	
+	// Check if disabled
+	if($(this).hasClass("disabledBtn")) {return false;}
 
 	// Get the URL to load
 	var linkToGet = $(this).attr('href');
 
+	// Put load more link in to a variable in case we need it again later (error reporting)
+	var oldLoadMore = $("#loadMore").html();
+
 	// Show a loading message
 	$('#loadMore').html('<span class="loadingPosts">Loading...</span>');
+	
+	// Hide any errors
+	$(".loadError").hide();
 	
 	// Hide the pagination link
 	$("#loadMorePagination").hide();
 	$("#loadMorePaginationLinks").hide();
+	
+	// Some target logic
+	if($("#blog-content").length>0) {var ajaxTarget = "#blog-content";}
+	else if($("#search-content").length>0) {var ajaxTarget = "#search-content";}
+	else if($("#archive-content").length>0) {var ajaxTarget = "#archive-content";}
+	else {var ajaxTarget = "#content";}
 
 	// Loading new content in to a div
-	$("<div>").load(linkToGet+' #blog-content', function(response, status) {
+	$("<div>").load(linkToGet+' '+ajaxTarget, function(response, status) {
 		if(response.readyState = 4) {
 		if(status == "success") {
 			
@@ -361,6 +388,17 @@ $('#loadMore a').live('click', function(e){
 			
 			// Show pagination link
 			$("#loadMorePagination").show();
+			
+		} else {
+			// Show the load more button again
+			$("#loadMore").html(oldLoadMore);
+			
+			// Show error message
+			$("#loadMore").before("<span class='loadError'>Error retrieving posts. Please try again.</span>");
+			
+			// Show Pagination Links
+			$("#loadMorePagination").show();
+			
 		}
 		}
 	});

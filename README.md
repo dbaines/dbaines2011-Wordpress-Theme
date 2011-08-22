@@ -73,8 +73,18 @@ If you are the creator of any of these resources and have issue with me redistri
 ### Near Future
 * Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics.
 
+### 1.6 - 2011-08-22
+* Fixed the excessive PRE tags in Geshi causing massive padding everywhere. (This was actually part of the last update, I just forgot to document it)
+* Minified the customised EasySlider script in plugins.js
+* Fixed accesskey 2 for about link
+* Updated [download] shortcode to open in new window, removed "Download" part of title text so you can use it as a pretty link button instead.
+* Added "or" between load more button and show pagination
+* Added some logic to show a disabled load more button if there are no more posts to load
+* Added an error message if the loadMore button fails to load the next page
+* Adapted post-icons to allow for multiple icons using some jQuery (dbaines.js)
+
 ### 1.5 - 2011-08-21
-* Removed changelog from skin.css for older releases. Still available at GitHub and the URL at the top of this file
+* Removed changelog from style.css for older releases. Still available at GitHub and the URL at the top of the file
 * Updated to Modernizr 2.0.6 Custom
 * Removed border-top for active menu item when using wordpress menus, since custom post types were showing the blog as being active, rather than the correct parent page. Bug in Wordpress?
 * Added custom close button for colorbox
@@ -152,5 +162,5 @@ If you are the creator of any of these resources and have issue with me redistri
 * Wordpress Options Page, starting with Google +1 buttons on/off toggle.
 * Updated login css to reflect changes in Wordpress 3.2
 
-### 1.0
+### 1.0 - 2011-03-26
 * Initial Release
