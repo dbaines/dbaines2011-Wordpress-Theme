@@ -4,35 +4,17 @@ Theme URI: http://dbaines.com/blog/archive/dbaines2011-wordpress-theme-now-on-gi
 Description: The 2011 theme for dBaines.com
 Author: David Baines
 Author URI: http://dbaines.com
-Version: 1.6
-
-
-	Far Future
-	- Smush.it pass, should be in Near Future really. 
-	- FAQ section on GitHub Readme or Wiki or something
-		- General logic of files (subsections, loops and so on)
-		- Where do I edit the profile links on homepage
-	- Do something about the ugly website/homepage sliders on responsive designs
-
-	Near Future
-	- Re-evaluate the print stylesheet and see if any of the changes since 1.0 require fixing or altering
-	- Custom styles for a sticky post
-	- Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics. Do I even use many gradients? I think most of them are textures.
-	- Replace HTML5 Boilerplate Reset with CSS normalisation
-	- QR code for mobile CV
-	- remove unneccessary vendor prefixes
-	- Multiple icon sizes
-		
+Version: 1.7
+	
+	1.7
+	- Re-arranged and styled the author info box at the bottom of loop-single.php, shows up when user has filled out their profile
+	- Styled Author Archives page
+	- Multiple Size Favicon (64, 32, 16)
+	- Added a little "sticky" icon/flag for sticky posts
+	- Switched from EasySlider to SudoSlider
+	- Removed left over Google Prettify code
+	
 	1.6 - 2011-08-22
-	- Fixed the excessive PRE tags in Geshi causing massive padding everywhere. (This was actually part of the last update, I just forgot to document it)
-	- Minified the customised EasySlider script in plugins.js
-	- Fixed accesskey 2 for about link
-	- Updated [download] shortcode to open in new window, removed "Download" part of title text so you can use it as a pretty link button instead.
-	- Added "or" between load more button and show pagination
-	- Added some logic to show a disabled load more button if there are no more posts to load
-	- Added an error message if the loadMore button fails to load the next page
-	- Adapted post-icons to allow for multiple icons using some jQuery (dbaines.js)
-		
 	1.5 - 2011-08-21
 	1.4 - 2011-08-04
 	1.3 - 2011-08-01
@@ -761,9 +743,8 @@ footer a:hover {color: #818181;}
 #archive-content .post {padding: 45px 0; border-bottom: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1);}
 .post:first-child {padding-top: 0 !important;}
 
-/* Sticky Posts 
-.post.sticky .entry-summary {padding: 10px; margin: 10px 0; background: #fff;}
-*/
+/* Sticky Posts */
+.post.sticky {background: url("images/stickyFlag.png") top right no-repeat;}
 
 #nav-above {border-bottom: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1); padding-bottom: 20px; margin-bottom: 30px;}
 
@@ -808,7 +789,17 @@ a.more-link, a.readmore, a.read_more, p.websiteLink a, .cancel-comment-reply a, 
 #loadMore a.disabledBtn {background-color: #ccc; cursor: not-allowed;}
 
 /* Single */
+#entry-author-info,
 .entry-meta-large {clear: both; padding: 20px 0 0 0; border-top: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1); margin: 0; list-style: none;}
+
+#entry-author-info {padding-bottom: 20px;}
+#author-avatar {float: left; margin: 0 20px 10px 0; width: 9%;}
+#author-avatar img {padding: 1px; background: #fff; box-shadow: 0 0 8px rgba(0,0,0,0.3); width: 100%; height: auto;}
+#author-description {float: left; width: 85%;}
+	#author-description h3 {font-weight: bold; font-size: 110%; padding-bottom: 10px;}
+	#author-link {padding-top: 10px;}
+	
+#entry-author-info.entry-author-top {border-bottom: 1px solid #d8d7cb; border-color: rgba(0,0,0,0.1); border-top: none; margin-bottom: 20px;}
 
 /* 
 Pseudo Element Icons: 
@@ -976,72 +967,31 @@ h3 {font-size: 24px; font-weight: normal;}
         #cboxClose.hover{background-position:bottom center;}
 		
 /* ------------------------------------------------------------------------------
-	EASY SLIDER
+	SUDO SLIDER
 ------------------------------------------------------------------------------ */
 
 	/* Homepage */
-	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:960px; height:380px;}
-		.homepageSlider li {overflow-y:hidden;}
+	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:960px; height:380px; overflow:hidden; position:relative; display:block;}
+		.homepageSliderWrapper {overflow:hidden;}
 		
 	/* Websites */
-	.websiteSliderContainer ul, .websiteSliderContainer li {margin:0;padding:0;	list-style:none;width:630px;height:380px;}
-	.websiteSliderContainer li {overflow:hidden; }
-		
-		
+	.websiteSliderContainer ul, .websiteSliderContainer li {margin:0;padding:0;	list-style:none;width:630px;height:380px;position:relative;display:block;}
+		.websiteSliderContainer {overflow:hidden; }
+	
+	/* Showing only the first slide until the JS kicks in */
+	.homepageSliderWrapper li, .websiteSliderContainer li {display:none;}	
+	.homepageSliderWrapper li:first-child, .websiteSliderContainer li:first-child {display:block;}
+	
+	.graphic, .prevBtn, .nextBtn{margin:0;padding:0;display:block;overflow:hidden;text-indent:-8000px;}
+	
 	#prevBtn, #nextBtn { 
 		display:block;width:30px;height:77px;position:absolute;	left:-30px;	top:71px;z-index:1000;}	
 	#nextBtn, #slider1next{ left:696px;	}														
 	#prevBtn a, #nextBtn a {  display:block;position:relative;width:30px;height:77px;background:url(images/btn_prev.gif) no-repeat 0 0;	}	
 	#nextBtn a { background:url(images/btn_next.gif) no-repeat 0 0;	}	
-		
-	/* numeric controls */	
-	ol#controls{margin:1em 0;padding:0; height:28px;}
-	ol#controls li{	margin:0 10px 0 0; 	padding:0;float:left;list-style:none;height:28px;line-height:28px;}
-	ol#controls li a{float:left;height:28px;line-height:28px;border:1px solid #ccc;	background:#DAF3F8;	color:#555;	padding:0 10px;	text-decoration:none;}
-	ol#controls li.current a{background:#5DC9E1;color:#fff;	}
-	ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus{outline:none;}
 	
-/* // Easy Slider */
-
-/* ------------------------------------------------------------------------------
-	Google Code Prettify
------------------------------------------------------------------------------- */
-/* Default */
-.pln{color:#000}@media screen{.str{color:#008}.kwd{color:#080}.com{color:#666}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
-
-@media none {
-/* Pretty printing styles. Used with prettify.js. */
-/* Vim sunburst theme by David Leibovic */
-
-pre .str, code .str { color: #65B042; } /* string  - green */
-pre .kwd, code .kwd { color: #E28964; } /* keyword - dark pink */
-pre .com, code .com { color: #AEAEAE; font-style: italic; } /* comment - gray */
-pre .typ, code .typ { color: #89bdff; } /* type - light blue */
-pre .lit, code .lit { color: #3387CC; } /* literal - blue */
-pre .pun, code .pun { color: #fff; } /* punctuation - white */
-pre .pln, code .pln { color: #fff; } /* plaintext - white */
-pre .tag, code .tag { color: #89bdff; } /* html/xml tag    - light blue */
-pre .atn, code .atn { color: #bdb76b; } /* html/xml attribute name  - khaki */
-pre .atv, code .atv { color: #65B042; } /* html/xml attribute value - green */
-pre .dec, code .dec { color: #3387CC; } /* decimal - blue */
-ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE; } /* IE indents via margin-left */
-li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
-li.L1,li.L3,li.L5,li.L7,li.L9 { }
-
-	@media print {
-	  pre .str, code .str { color: #060; }
-	  pre .kwd, code .kwd { color: #006; font-weight: bold; }
-	  pre .com, code .com { color: #600; font-style: italic; }
-	  pre .typ, code .typ { color: #404; font-weight: bold; }
-	  pre .lit, code .lit { color: #044; }
-	  pre .pun, code .pun { color: #440; }
-	  pre .pln, code .pln { color: #000; }
-	  pre .tag, code .tag { color: #006; font-weight: bold; }
-	  pre .atn, code .atn { color: #404; }
-	  pre .atv, code .atv { color: #060; }
-	}
-
-}
+	
+/* // Sudo Slider */
 
 /* ------------------------------------------------------------------------------
 	404
@@ -1150,7 +1100,6 @@ html.error4042 a:hover {color: #fff;}
 	
 	/* Images */
 	.wp-caption, .wp-caption img, img.size-full, .gallery dl.gallery-item dt.gallery-icon a img, .galleryImage img, .tutorial-image a img,
-	.websiteSlider img  {max-width: 100% !important; width: auto !important; height: auto;}
 	.alignright.wp-caption, .alignleft.wp-caption {margin: 0 0 20px 0; float: none;}
 	#cboxTitle {display: none !important;}
 	#cboxContent {padding-bottom: 0 !important;}
@@ -1171,30 +1120,15 @@ html.error4042 a:hover {color: #fff;}
 	.reqtxt, .emailreqtxt {padding-left: 0; padding-bottom: 15px;}
 	.cf-sb input {margin-left: 0;}
 	
-	/* Homepage Slider 
-	.homepageSliderWrapper {width: 100% !important; height: auto; position: static;}
-	.homepageSlider .sliderDetails  {width: 100%;}
-	.homepageSlider img {max-width: 100%; width: auto !important; height: auto !important;}
-	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:100%; height:auto;}
-		.homepageSlider li {overflow-y:hidden;}
-		.homepageSlider li:first-child {display: block; left: 0; top: 0;}
-		
-	.home #largeNext, .home #largePrev {display: none;}
-	*/
-	
-	/*
-	.homepageSliderWrapper {width: 100% !important; height: auto;}
-	.homepageSlider .sliderDetails  {width: 100%;}
-	.homepageSlider img {max-width: 100%; width: auto !important; height: auto !important;}
-	.homepageSliderWrapper ul, .homepageSlider li {margin:0; padding:0;	list-style:none; width:100%; height:auto;}
-	*/
+	/* Homepage Slider */
 	.homepageSlider {height: auto !important;}
 	.homepageSliderWrapper, .homepageSlider img, .sliderDetails {width: auto !important; max-width: 100%;}
-		
-	/* Websites Slider */
-	.websiteSliderContainer, .websiteSliderContainer:hover {background: transparent; box-shadow: none; margin-bottom: 30px; padding: 0; border: none;}
-	.websiteSliderContainer ul, .websiteSliderContainer, .websiteSliderContainer img, .websiteSliderContainer a {max-width: 100%; width: auto !important;height:auto !important; position: static;}
-	.websiteSliderContainer li {float: left; width: 50%; height: auto; margin: 10px;}
+	
+	/* Websites */
+	.websiteInfo {clear: both; padding: 10px 0; float: none; width: auto;}
+	.websiteSlider a, .websiteSlider li, .websiteSlider ul, .websiteSlider img {width: auto !important; max-width: 630px !important;}
+	.websiteSliderContainer  {height: auto; width: auto !important; max-width: 630px; float: none;}
+	.websiteContainer  ol.controls {position: static; float: right; clear: both; padding: 10px 0;}
 	
 }
 
@@ -1298,8 +1232,11 @@ html.error4042 a:hover {color: #fff;}
 	
 	/* Hiding Images, not necessary */
 	.entry-summary .wp-caption,
-	.entry-content .tutorial-image {display: none;}
+	.entry-content .tutorial-image,
+	#author-avatar {display: none;}
 	.tutorial-post {width: 100%;}
+	
+	#author-description {width: 100%;}
 	
 	/* Blog Galleries */
 	.gallery br {display: none;}
@@ -1308,12 +1245,6 @@ html.error4042 a:hover {color: #fff;}
 	/* Subsection */
 	#subsection-column1, #subsection-column2, #subsection-column3 {width: 100%; padding: 10px 0; float: none; display: none;}
 	.blog #subsection-column1 {display: block;}
-	
-	/* Portfolio Websites */
-	.websiteSliderContainer  {height: auto; width: 100%; float: none;}
-	.websiteContainer  ol.controls {position: static; float: right; clear: both; padding: 10px 0;}
-	.websiteInfo {clear: both; padding: 10px 0; float: none; width: auto;}
-	.websiteSlider a, .websiteSlider li, .websiteSlider ul, .websiteSlider img {width: auto;}
 	
 	/* Portfolio Gallery */
 	.galleryImage {margin: 0; float: none;}

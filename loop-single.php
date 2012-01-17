@@ -24,6 +24,24 @@
 						<?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'twentyten' ), 'after' => '</div>' ) ); ?>
 					</article><!-- .entry-content -->
                     
+					<?php if ( get_the_author_meta( 'description' ) ) : // If a user has filled out their description, show a bio on their entries  ?>
+                        <div id="entry-author-info">
+                            <div id="author-avatar">
+                                <?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'twentyten_author_bio_avatar_size', 120 ) ); ?>
+                            </div><!-- #author-avatar -->
+                            <div id="author-description">
+                                <h3><?php printf( esc_attr__( 'About %s', 'twentyten' ), get_the_author() ); ?></h3>
+                                <?php the_author_meta( 'description' ); ?>
+                                <div id="author-link">
+                                    <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
+                                        <?php printf( __( 'View all posts by %s <span class="meta-nav">&rarr;</span>', 'twentyten' ), get_the_author() ); ?>
+                                    </a>
+                                </div><!-- #author-link	-->
+                            </div><!-- #author-description -->
+                            <div class="clear"></div>
+                        </div><!-- #entry-author-info -->
+                    <?php endif; ?>
+                    
                     <ul class="entry-meta-large">
 						<?php edit_post_link('Edit', '<li class="edit">', '</li>'); ?>
                         <li class="time"><time datetime="<?php the_date('c'); ?>" pubdate><?php the_time('F jS, Y') ?> at exactly <?php the_time('g:i a') ?></time></li>
@@ -38,23 +56,6 @@
                         <?php previous_post_link('<li class="prevpost">%link</li>') ?>
                         <?php next_post_link('<li class="nextpost">%link</li>') ?>
                     </ul>
-
-				<?php if ( get_the_author_meta( 'description' ) ) : // If a user has filled out their description, show a bio on their entries  ?>
-					<div id="entry-author-info">
-						<div id="author-avatar">
-							<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'twentyten_author_bio_avatar_size', 60 ) ); ?>
-						</div><!-- #author-avatar -->
-						<div id="author-description">
-							<h2><?php printf( esc_attr__( 'About %s', 'twentyten' ), get_the_author() ); ?></h2>
-							<?php the_author_meta( 'description' ); ?>
-							<div id="author-link">
-								<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
-									<?php printf( __( 'View all posts by %s <span class="meta-nav">&rarr;</span>', 'twentyten' ), get_the_author() ); ?>
-								</a>
-							</div><!-- #author-link	-->
-						</div><!-- #author-description -->
-					</div><!-- #entry-author-info -->
-				<?php endif; ?>
 				</section><!-- #post-## -->
 
 				<?php #comments_template( '', true ); ?>

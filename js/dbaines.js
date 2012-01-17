@@ -250,30 +250,31 @@ function colorboxTargets() {
 colorboxTargets();
 
 /* ------------------------------------------------------------------------------
-	EASY SLIDERS
+	SUDO SLIDERS
 ------------------------------------------------------------------------------ */
-$(".homepageSliderWrapper").easySlider({
-	continuous: true,
-	prevId: "largePrev",
-	nextId: "largeNext",
-	keyboard: true,
+
+$(".homepageSliderWrapper").sudoSlider({
+	prevHtml: '<span id="largePrev"><a href="#" class="prevBtn"> previous </a></span>',
+	nextHtml: '<span id="largeNext"><a href="#" class="nextBtn"> next </a></span>',
+	controlsFade: false,
+	continuous: false,
+	autowidth: false,
 	speed: 600
 });
-$(".websiteSliderContainer").easySlider({
-	continuous: false,
+
+$(".websiteSliderContainer").sudoSlider({
+	prevHtml: '<span id="smallPrev"><a href="#" class="prevBtn"> previous </a></span>',
+	nextHtml: '<span id="smallNext"><a href="#" class="nextBtn"> next </a></span>',
 	numeric: true,
-	prevId: "smallPrev",
-	nextId: "smallNext",
+	controlsShow: true,
+	controlsFade: false,
+	continuous: false,
+	autowidth: false,
+	updateBefore: true,
+	prevNext: false,
+	keyboardNav: false,
 	speed: 200
 });
-
-/* Responsive Sliders would be nice
-if (!Modernizr.mq('only all and (max-width: 960px)')) {
-	
-} else {
-	$(".homepageSliderWrapper").dbSlider();
-}
-*/
 
 /* ------------------------------------------------------------------------------
 	LARGE ARROWS

@@ -221,8 +221,16 @@
 				// Archives
 				elseif(is_tag()) {printf( __( '%s', 'twentyten' ), single_tag_title( '', false ) ); echo " <a href='".get_bloginfo('url')."?tag=".single_tag_title( '', false )."&amp;feed=rss2' class='headerRSS' title='Subscribe to this tag'>Subscribe to this tag</a>";}
 				elseif(is_category()) {printf( __( '%s', 'twentyten' ), single_cat_title( '', false ) );  echo " <a href='".get_bloginfo('url')."?tag=".single_cat_title( '', false )."&amp;feed=rss2' class='headerRSS' title='Subscribe to this category'>Subscribe to this category</a>"; }
-				elseif(is_archive()) {
-					if ( is_day() ) : ?>
+				elseif(is_archive()) { ?>
+					<?php if ( is_author() ) : ?>
+				                    <?php
+										if ( have_posts() ) {
+												the_post();
+												printf( esc_attr__( 'Author Archives: %s', 'twentyten' ), get_the_author() );
+												rewind_posts();
+										}		
+									?>
+					<?php elseif ( is_day() ) : ?>
 									<?php printf( __( 'Daily Archives: <span>%s</span>', 'twentyten' ), get_the_date() ); ?>
 					<?php elseif ( is_month() ) : ?>
 									<?php printf( __( 'Monthly Archives: <span>%s</span>', 'twentyten' ), get_the_date( 'F Y' ) ); ?>

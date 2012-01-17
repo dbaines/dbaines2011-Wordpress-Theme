@@ -1,7 +1,8 @@
 dbaines2011 - dBaines.com Wordpress Theme
 ==========================================
 
-This is the theme currently in use at dBaines.com
+This was the theme currently in use at dBaines.com during 2011.
+Development of this project has now ceased. Any future updates will be to the [dbaines2012-Wordpress-Theme project](https://github.com/dbaines/dbaines2012-Wordpress-Theme), still available here at Github.
 
 ## Notable features:
 
@@ -12,7 +13,7 @@ This is the theme currently in use at dBaines.com
 * Permalinks for custom post type indexes
 * RSS Feeds for custom post types
 * Portfolio page takes the latest thumbnail from each area (website, artwork, motion) and creates a button from that image
-* Modified EasySlider script to include keyboard navigation and support for multiple easysliders on a single page
+* Modified SudoSlider script to include keyboard navigation and support for multiple easysliders on a single page
 * Heavy uses of HTML5 and CSS3
 * Custom homepage theme
 * Randomised 404 page
@@ -57,7 +58,7 @@ It should be noted that this theme does not (and will not) support old browsers.
 ### Scripts:
 
 * Modernizr
-* EasySlider
+* SudoSlider
 * Colorbox
 * Flowplayer
 
@@ -70,8 +71,14 @@ If you are the creator of any of these resources and have issue with me redistri
 
 ## Version History
 
-### Near Future
-* Replace most of the backgrounds with CSS3 gradients where applicable. Supply .no-cssgradient via modernizr support with graphics.
+### 1.7 - 2012-01-17
+* FINAL VERSION - Superceded by [the 2012 theme](https://github.com/dbaines/dbaines2012-Wordpress-Theme).
+* Re-arranged and styled the author info box at the bottom of loop-single.php, shows up when user has filled out their profile
+* Styled Author Archives page
+* Multiple Size Favicon (64, 32, 16)
+* Added a little "sticky" icon/flag for sticky posts
+* Switched from EasySlider to SudoSlider
+* Removed left over Google Prettify code
 
 ### 1.6 - 2011-08-22
 * Fixed the excessive PRE tags in Geshi causing massive padding everywhere. (This was actually part of the last update, I just forgot to document it)
